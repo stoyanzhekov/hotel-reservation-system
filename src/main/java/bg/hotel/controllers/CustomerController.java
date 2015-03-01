@@ -10,23 +10,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import bg.hotel.entities.User;
-import bg.hotel.services.UserService;
+import bg.hotel.entities.Customer;
+import bg.hotel.services.CustomerService;
 
-/**
- * @author Siva
- *
- */
 @Controller
-public class UserController {
+public class CustomerController {
 
 	@Autowired
-	private UserService userService;
+	private CustomerService customerService;
 	
 	@RequestMapping("/welcome")
 	public String welcome(Model model) 
 	{
-		List<User> blogs = userService.findAllUsers();
+		List<Customer> blogs = customerService.findAllUsers();
 		model.addAttribute("USERS", blogs);
 		return "welcome";
 	}
