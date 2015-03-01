@@ -2,21 +2,58 @@ package bg.hotel.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="extras")
 public class Extras implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 
+	@Column(name="bathhub")
 	private Boolean bathtub;
+	
+	@Column(name="air_conditioning")
 	private Boolean airConditioning;
+	
+	@Column(name="bathhub")
 	private Boolean kitchen;
+	
+	@Column(name="laundry")
 	private Boolean laundry;
+	
+	@Column(name="tv")
 	private Boolean tv;
+	
+	@Column(name="terrace")
 	private Boolean terrace;
 	
+	@OneToOne(mappedBy="extras")
+	private Room room;
+	
 	public Extras(){}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Boolean getBathtub() {
 		return bathtub;

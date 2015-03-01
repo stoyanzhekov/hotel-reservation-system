@@ -19,9 +19,9 @@
 	Welcome!!
 	<h2>List of Users:</h2>
 	<div>
-		<c:if test="${USERS != null }">
-			<c:forEach items="${USERS}" var="user">
-				<p>${user.userId} - ${user.userName}</p>
+		<c:if test="${Customers != null }">
+			<c:forEach items="${Customers}" var="customer">
+				<p>${customer.id} - ${customer.firstName}</p>
 			</c:forEach>
 		</c:if>
 	</div>

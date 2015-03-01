@@ -3,6 +3,17 @@ package bg.hotel.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="reservation_details")
 public class ReservationDetails implements Serializable{
 
 	/**
@@ -10,14 +21,37 @@ public class ReservationDetails implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(nullable=false, name = "room_id")
 	private Room room;
+	
+	@ManyToOne
+	@JoinColumn(nullable=false, name = "reservation_id")
 	private Reservation reservation;
+	
+	@Column(name="check_in", nullable=false)
 	private LocalDate checkIn;
+	
+	@Column(name="check_out", nullable=false)
 	private LocalDate checkOut;
+	
+	@Column(name="is_canceled")
 	private Boolean isCanceled;
 	
 	public ReservationDetails(){}
 
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public Room getRoom() {
 		return room;
 	}

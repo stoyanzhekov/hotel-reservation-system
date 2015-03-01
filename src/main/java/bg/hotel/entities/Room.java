@@ -3,6 +3,21 @@ package bg.hotel.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="room")
 public class Room implements Serializable{
 
 	/**
@@ -10,15 +25,43 @@ public class Room implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	@Column(name="floor", nullable=false)
 	private Integer floor;
+	
+	@Column(name="number", nullable=false)
 	private Integer number;
+	
+	@ManyToOne
+	@JoinColumn(nullable=false, name = "hotel_id")
 	private Hotel hotel;
+	
+	@OneToOne
+    @JoinColumn(name="extras_id", nullable=false)
 	private Extras extras;
-	private ReservationDetails reservationDetail;
+	
+	@OneToMany(mappedBy="room")
+	private List<ReservationDetails> reservationDetails;
+	
+	@OneToMany(mappedBy="room")
 	private List<PricePeriod> pricePeriods;
+	
+	@Enumerated(EnumType.STRING)
+	private RoomType roomType;
 	
 	public Room(){}
 
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public Integer getFloor() {
 		return floor;
 	}
@@ -51,20 +94,28 @@ public class Room implements Serializable{
 		this.extras = extras;
 	}
 
-	public ReservationDetails getReservationDetail() {
-		return reservationDetail;
-	}
-
-	public void setReservationDetail(ReservationDetails reservationDetail) {
-		this.reservationDetail = reservationDetail;
-	}
-
 	public List<PricePeriod> getPricePeriods() {
 		return pricePeriods;
 	}
 
 	public void setPricePeriods(List<PricePeriod> pricePeriods) {
 		this.pricePeriods = pricePeriods;
+	}
+
+	public RoomType getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
+	}
+
+	public List<ReservationDetails> getReservationDetail() {
+		return reservationDetails;
+	}
+
+	public void setReservationDetail(List<ReservationDetails> reservationDetails) {
+		this.reservationDetails = reservationDetails;
 	}
 
 	@Override
@@ -79,8 +130,10 @@ public class Room implements Serializable{
 				+ ((pricePeriods == null) ? 0 : pricePeriods.hashCode());
 		result = prime
 				* result
-				+ ((reservationDetail == null) ? 0 : reservationDetail
+				+ ((reservationDetails == null) ? 0 : reservationDetails
 						.hashCode());
+		result = prime * result
+				+ ((roomType == null) ? 0 : roomType.hashCode());
 		return result;
 	}
 
@@ -118,10 +171,12 @@ public class Room implements Serializable{
 				return false;
 		} else if (!pricePeriods.equals(other.pricePeriods))
 			return false;
-		if (reservationDetail == null) {
-			if (other.reservationDetail != null)
+		if (reservationDetails == null) {
+			if (other.reservationDetails != null)
 				return false;
-		} else if (!reservationDetail.equals(other.reservationDetail))
+		} else if (!reservationDetails.equals(other.reservationDetails))
+			return false;
+		if (roomType != other.roomType)
 			return false;
 		return true;
 	}

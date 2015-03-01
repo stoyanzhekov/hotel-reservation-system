@@ -3,6 +3,16 @@ package bg.hotel.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="reservation")
 public class Payment implements Serializable{
 
 	/**
@@ -10,11 +20,26 @@ public class Payment implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	@Column(name="amount")
 	private BigDecimal amount;
+	
+	@OneToOne(mappedBy="payment")
 	private Reservation reservetion;
 	
 	public Payment(){}
 
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public BigDecimal getAmount() {
 		return amount;
 	}

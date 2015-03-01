@@ -8,6 +8,6 @@ import bg.hotel.entities.Customer;
 
 public interface CustomerService {
 
-	public List<Customer> findAllUsers();
+	public List<Customer> findAllCustomers();
 
 }

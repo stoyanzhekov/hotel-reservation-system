@@ -2,6 +2,10 @@ package bg.hotel.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Address implements Serializable{
 
 	/**
@@ -9,11 +13,22 @@ public class Address implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Column(name="street_name", nullable=false)
 	private String streetName;
+	
+	@Column(name="street_number", nullable=false)
 	private String streetNumber;
+	
+	@Column(name="post_code", nullable=false)
 	private Integer postCode;
+	
+	@Column(name="floor")
 	private Integer floor;
+	
+	@Column(name="entrance")
 	private String entrance;
+	
+	@Column(name="room_number")
 	private Integer roomNumber;
 	
 	public Address(){}

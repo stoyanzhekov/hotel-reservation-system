@@ -18,12 +18,11 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
-	
+
 	@RequestMapping("/welcome")
-	public String welcome(Model model) 
-	{
-		List<Customer> blogs = customerService.findAllUsers();
-		model.addAttribute("USERS", blogs);
+	public String welcome(Model model) {
+		List<Customer> customers = customerService.findAllCustomers();
+		model.addAttribute("Customers", customers);
 		return "welcome";
 	}
 }

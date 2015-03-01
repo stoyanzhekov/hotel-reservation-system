@@ -4,6 +4,19 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="reservation")
 public class Reservation implements Serializable{
 
 	/**
@@ -11,13 +24,34 @@ public class Reservation implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	@OneToMany(mappedBy="reservation")
 	private List<ReservationDetails> reservationDetails;
+	
+	@Column(name="created_at")
 	private LocalDate createdAt;
+	
+	@OneToOne
+    @JoinColumn(name="payment_id", nullable=false)
 	private Payment payment;
+	
+	@ManyToOne
+	@JoinColumn(nullable=false, name = "customer_id")
 	private Customer customer;
 	
 	public Reservation(){}
 
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public List<ReservationDetails> getReservationDetails() {
 		return reservationDetails;
 	}
