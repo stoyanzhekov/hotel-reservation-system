@@ -27,6 +27,7 @@ public class Room implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id", nullable=false)
 	private Long id;
 	
 	@Column(name="floor", nullable=false)

@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="reservation")
+@Table(name="payment")
 public class Payment implements Serializable{
 
 	/**
@@ -22,6 +22,7 @@ public class Payment implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id", nullable=false)
 	private Long id;
 	
 	@Column(name="amount")

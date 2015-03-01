@@ -22,6 +22,7 @@ public class Extras implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id", nullable=false)
 	private Long id;
 
 	@Column(name="bathhub")
@@ -30,7 +31,7 @@ public class Extras implements Serializable{
 	@Column(name="air_conditioning")
 	private Boolean airConditioning;
 	
-	@Column(name="bathhub")
+	@Column(name="kitchen")
 	private Boolean kitchen;
 	
 	@Column(name="laundry")

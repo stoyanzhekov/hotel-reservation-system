@@ -23,6 +23,7 @@ public class ReservationDetails implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id", nullable=false)
 	private Long id;
 	
 	@ManyToOne

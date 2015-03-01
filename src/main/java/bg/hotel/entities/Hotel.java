@@ -26,13 +26,13 @@ public class Hotel implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id", nullable=false)
 	private Long id;
 	
 	@Column(name="name", nullable=false)
 	private String name;
 	
 	@Embedded
-	@Column(name="address", nullable=false)
 	private Address address;
 	
 	@OneToMany(mappedBy="hotel")
