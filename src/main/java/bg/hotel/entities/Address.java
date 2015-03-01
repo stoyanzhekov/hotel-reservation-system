@@ -15,6 +15,9 @@ public class Address implements Serializable{
 	private Integer floor;
 	private String entrance;
 	private Integer roomNumber;
+	
+	public Address(){}
+	
 	public String getStreetName() {
 		return streetName;
 	}
@@ -109,7 +112,5 @@ public class Address implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 	
 }

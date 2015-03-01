@@ -1,0 +1,100 @@
+package bg.hotel.entities;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
+
+public class Reservation implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private List<ReservationDetails> reservationDetails;
+	private LocalDate createdAt;
+	private Payment payment;
+	private Customer customer;
+	
+	public Reservation(){}
+
+	public List<ReservationDetails> getReservationDetails() {
+		return reservationDetails;
+	}
+
+	public void setReservationDetails(List<ReservationDetails> reservationDetails) {
+		this.reservationDetails = reservationDetails;
+	}
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((createdAt == null) ? 0 : createdAt.hashCode());
+		result = prime * result
+				+ ((customer == null) ? 0 : customer.hashCode());
+		result = prime * result + ((payment == null) ? 0 : payment.hashCode());
+		result = prime
+				* result
+				+ ((reservationDetails == null) ? 0 : reservationDetails
+						.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Reservation other = (Reservation) obj;
+		if (createdAt == null) {
+			if (other.createdAt != null)
+				return false;
+		} else if (!createdAt.equals(other.createdAt))
+			return false;
+		if (customer == null) {
+			if (other.customer != null)
+				return false;
+		} else if (!customer.equals(other.customer))
+			return false;
+		if (payment == null) {
+			if (other.payment != null)
+				return false;
+		} else if (!payment.equals(other.payment))
+			return false;
+		if (reservationDetails == null) {
+			if (other.reservationDetails != null)
+				return false;
+		} else if (!reservationDetails.equals(other.reservationDetails))
+			return false;
+		return true;
+	}
+}
