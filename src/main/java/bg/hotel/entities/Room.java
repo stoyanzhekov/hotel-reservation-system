@@ -36,10 +36,6 @@ public class Room implements Serializable{
 	@Column(name="number", nullable=false)
 	private Integer number;
 	
-	@ManyToOne
-	@JoinColumn(nullable=false, name = "hotel_id")
-	private Hotel hotel;
-	
 	@OneToOne
     @JoinColumn(name="extras_id", nullable=false)
 	private Extras extras;
@@ -77,14 +73,6 @@ public class Room implements Serializable{
 
 	public void setNumber(Integer number) {
 		this.number = number;
-	}
-
-	public Hotel getHotel() {
-		return hotel;
-	}
-
-	public void setHotel(Hotel hotel) {
-		this.hotel = hotel;
 	}
 
 	public Extras getExtras() {
@@ -125,7 +113,6 @@ public class Room implements Serializable{
 		int result = 1;
 		result = prime * result + ((extras == null) ? 0 : extras.hashCode());
 		result = prime * result + ((floor == null) ? 0 : floor.hashCode());
-		result = prime * result + ((hotel == null) ? 0 : hotel.hashCode());
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result
 				+ ((pricePeriods == null) ? 0 : pricePeriods.hashCode());
@@ -156,11 +143,6 @@ public class Room implements Serializable{
 			if (other.floor != null)
 				return false;
 		} else if (!floor.equals(other.floor))
-			return false;
-		if (hotel == null) {
-			if (other.hotel != null)
-				return false;
-		} else if (!hotel.equals(other.hotel))
 			return false;
 		if (number == null) {
 			if (other.number != null)

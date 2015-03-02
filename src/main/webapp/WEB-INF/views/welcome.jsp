@@ -16,7 +16,7 @@
 </head>
 
 <body>
-	Welcome!!
+	Welcome to <spring:message code="hotel.name" />!!
 	<h2>List of Users:</h2>
 	<div>
 		<c:if test="${Customers != null }">
