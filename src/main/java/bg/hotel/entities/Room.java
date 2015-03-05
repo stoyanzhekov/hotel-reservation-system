@@ -106,6 +106,13 @@ public class Room implements Serializable{
 	public void setReservationDetail(List<ReservationDetails> reservationDetails) {
 		this.reservationDetails = reservationDetails;
 	}
+	
+	public enum RoomType {
+
+		SINGLE,
+		DOUBLE,
+		APP;
+	}
 
 	@Override
 	public int hashCode() {

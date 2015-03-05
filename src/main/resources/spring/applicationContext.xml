@@ -11,6 +11,10 @@
 						http://www.springframework.org/schema/data/jpa
     					http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
+	<context:annotation-config />
+
+	<context:component-scan base-package="bg.hotel" />
+
 	<context:property-placeholder location="classpath:application.properties" />
 
 	<jpa:repositories base-package="bg.hotel.repositories" />

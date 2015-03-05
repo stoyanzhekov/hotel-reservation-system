@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Register Employee</title>
+</h:head>
+<h:body>
+	<ui:composition template="/WEB-INF/tamplates/admin.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<h:panelGrid columns="3" id="grid" cellpadding="5" class="ui-grid">
+				
+					<h:outputLabel for="floor" value="Floor: " />
+	        		<p:inputText id="floor" required="true" value="#{adminMB.room.floor}">
+	        			<f:validateDoubleRange minimum="1" maximum="10" />
+	        		</p:inputText>
+	        		<p:message for="floor" />
+	        		
+	        		<h:outputLabel for="number" value="Number: " />
+	        		<p:inputText id="number" required="true" value="#{adminMB.room.number}">
+	        			<f:validateDoubleRange minimum="1" maximum="1000" />
+	        		</p:inputText>
+	        		<p:message for="number" />
+	        		
+	        		<h:panelGrid columns="4" cellpadding="5" class="ui-grid">
+		        		<h:outputLabel for="bathtub" value="Bathtub: " />
+	        			<p:selectBooleanCheckbox id="bathtub" value="#{adminMB.room.bathtub}" />
+	        			<h:outputLabel for="airConditioning" value="Air Conditioning: " />
+	        			<p:selectBooleanCheckbox id="airConditioning" value="#{adminMB.room.airConditioning}" />
+	        			
+	        			<h:outputLabel for="kitchen" value="Kitchen: " />
+	        			<p:selectBooleanCheckbox id="kitchen" value="#{adminMB.room.kitchen}" />
+	        			<h:outputLabel id="laundry" value="Laundry: " />
+	        			<p:selectBooleanCheckbox value="#{adminMB.room.laundry}" />
+	        			
+	        			<h:outputLabel for="tv" value="TV: " />
+	        			<p:selectBooleanCheckbox id="tv" value="#{adminMB.room.tv}" />
+	        			<h:outputLabel for="terrace" value="Terrace: " />
+	        			<p:selectBooleanCheckbox id="terrace" value="#{adminMB.room.tv}" />
+        			</h:panelGrid>
+        		</h:panelGrid>
+        		<p:separator />
+        		<p:commandButton value="Save" actionListener="#{adminMB.saveRoom}" icon="ui-icon-check" update="grid"/>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
