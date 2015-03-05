@@ -9,10 +9,13 @@
 	<h:outputStylesheet name="style.css" library="css" />
     </h:head>
     <h:body>
-	<div id="page"> 
+	<div id="page">
 	<p:layout style="width: 100%; height: 100%;">
-		<p:layoutUnit position="west" resizable="true" size="100" minSize="40" maxSize="200">
-        MENU
+		<p:layoutUnit position="west" resizable="true" size="150" minSize="150">
+        	<h:panelGrid id="grid_menu" cellpadding="5" class="ui-grid">
+        		<p:link outcome="/admin/adding-room" value="Add room" />
+        		<p:link outcome="/index" value="Add period" />
+        	</h:panelGrid>
     	</p:layoutUnit>
 		<p:layoutUnit position="center">
 			 <div id="content">

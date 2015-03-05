@@ -1,6 +1,10 @@
 package bg.hote.dto;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+import bg.hotel.entities.RoomType;
 
 public class RoomDto implements Serializable{
 	
@@ -19,8 +23,32 @@ public class RoomDto implements Serializable{
 	private Boolean laundry;
 	private Boolean tv;
 	private Boolean terrace;
+	private RoomType roomType;
+	private Map<RoomType, RoomType> roomTypes;
 	
-	public RoomDto(){}
+	public RoomDto(){
+		roomTypes = new HashMap<>();
+		 for (RoomType rt : RoomType.values()) {
+			 roomTypes.put(rt, rt);
+		 }
+	}
+	
+	public Map<RoomType, RoomType> getRoomTypes() {
+		return roomTypes;
+	}
+	
+	public void setRoomTypes(Map<RoomType, RoomType> roomTypes) {
+		this.roomTypes = roomTypes;
+	}
+
+	public RoomType getRoomType() {
+		return roomType;
+	}
+	
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
+	}
+
 
 	public Integer getFloor() {
 		return floor;

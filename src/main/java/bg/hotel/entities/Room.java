@@ -3,6 +3,7 @@ package bg.hotel.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -36,8 +37,8 @@ public class Room implements Serializable{
 	@Column(name="number", nullable=false)
 	private Integer number;
 	
-	@OneToOne
-    @JoinColumn(name="extras_id", nullable=false)
+	@OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="extras_id")
 	private Extras extras;
 	
 	@OneToMany(mappedBy="room")
@@ -107,13 +108,6 @@ public class Room implements Serializable{
 		this.reservationDetails = reservationDetails;
 	}
 	
-	public enum RoomType {
-
-		SINGLE,
-		DOUBLE,
-		APP;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

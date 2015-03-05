@@ -13,34 +13,42 @@
 				<h:panelGrid columns="3" id="grid" cellpadding="5" class="ui-grid">
 				
 					<h:outputLabel for="floor" value="Floor: " />
-	        		<p:inputText id="floor" required="true" value="#{adminMB.room.floor}">
+	        		<p:inputText id="floor" required="true" value="#{adminMB.roomDto.floor}">
 	        			<f:validateDoubleRange minimum="1" maximum="10" />
 	        		</p:inputText>
 	        		<p:message for="floor" />
 	        		
 	        		<h:outputLabel for="number" value="Number: " />
-	        		<p:inputText id="number" required="true" value="#{adminMB.room.number}">
+	        		<p:inputText id="number" required="true" value="#{adminMB.roomDto.number}">
 	        			<f:validateDoubleRange minimum="1" maximum="1000" />
 	        		</p:inputText>
 	        		<p:message for="number" />
-	        		
-	        		<h:panelGrid columns="4" cellpadding="5" class="ui-grid">
-		        		<h:outputLabel for="bathtub" value="Bathtub: " />
-	        			<p:selectBooleanCheckbox id="bathtub" value="#{adminMB.room.bathtub}" />
-	        			<h:outputLabel for="airConditioning" value="Air Conditioning: " />
-	        			<p:selectBooleanCheckbox id="airConditioning" value="#{adminMB.room.airConditioning}" />
-	        			
-	        			<h:outputLabel for="kitchen" value="Kitchen: " />
-	        			<p:selectBooleanCheckbox id="kitchen" value="#{adminMB.room.kitchen}" />
-	        			<h:outputLabel id="laundry" value="Laundry: " />
-	        			<p:selectBooleanCheckbox value="#{adminMB.room.laundry}" />
-	        			
-	        			<h:outputLabel for="tv" value="TV: " />
-	        			<p:selectBooleanCheckbox id="tv" value="#{adminMB.room.tv}" />
-	        			<h:outputLabel for="terrace" value="Terrace: " />
-	        			<p:selectBooleanCheckbox id="terrace" value="#{adminMB.room.tv}" />
-        			</h:panelGrid>
         		</h:panelGrid>
+        		
+        		<h:panelGrid columns="4" cellpadding="5" class="ui-grid">
+	        		<h:outputLabel for="bathtub" value="Bathtub: " />
+        			<p:selectBooleanCheckbox id="bathtub" value="#{adminMB.roomDto.bathtub}" />
+        			<h:outputLabel for="airConditioning" value="Air Conditioning: " />
+        			<p:selectBooleanCheckbox id="airConditioning" value="#{adminMB.roomDto.airConditioning}" />
+        			
+        			<h:outputLabel for="kitchen" value="Kitchen: " />
+        			<p:selectBooleanCheckbox id="kitchen" value="#{adminMB.roomDto.kitchen}" />
+        			<h:outputLabel id="laundry" value="Laundry: " />
+        			<p:selectBooleanCheckbox value="#{adminMB.roomDto.laundry}" />
+        			
+        			<h:outputLabel for="tv" value="TV: " />
+        			<p:selectBooleanCheckbox id="tv" value="#{adminMB.roomDto.tv}" />
+        			<h:outputLabel for="terrace" value="Terrace: " />
+        			<p:selectBooleanCheckbox id="terrace" value="#{adminMB.roomDto.tv}" />
+       			</h:panelGrid>
+       			
+       			<h:panelGrid columns="2" cellpadding="5" class="ui-grid">
+	       			<p:outputLabel for="type" value="Room type: " />
+	           			<p:selectOneMenu id="type" value="#{adminMB.roomDto.roomType}" style="width:150px">
+	               		<f:selectItems value="#{adminMB.roomDto.roomTypes}" />
+	           		</p:selectOneMenu>
+        		</h:panelGrid>
+        		
         		<p:separator />
         		<p:commandButton value="Save" actionListener="#{adminMB.saveRoom}" icon="ui-icon-check" update="grid"/>
 			</h:form>
