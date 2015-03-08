@@ -49,11 +49,58 @@
         		</h:panelGrid>
         		
         		<p:separator />
-        		<p:commandButton value="Save" actionListener="#{adminMB.saveRoom(room)}" icon="ui-icon-check" update="grid, messages"/>
+        		<p:commandButton value="Save" actionListener="#{adminMB.saveRoom(room)}" icon="ui-icon-check" update="@all"/>
         		
         		<p:commandButton value="Reset" update="addRoom" process="@this" icon="ui-icon-cancel" style="margin-right:20px;" >
                 <p:resetInput target="addRoom" />
             </p:commandButton>
+			</h:form>
+		</ui:define>
+		<ui:define name="south_content">
+			<h:form>
+				<p:dataTable var="room" value="#{adminMB.rooms}"
+					id="pricePeriod">
+					<p:column headerText="Room Number">
+						<h:outputText value="#{room.number}" />
+					</p:column>
+					<p:column headerText="Floor">
+						<h:outputText value="#{room.floor}">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Bathtub">
+						<h:outputText value="#{room.extras.bathtub ? 'yes' : 'no'}">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Air conditioning">
+						<h:outputText value="#{room.extras.airConditioning ? 'yes' : 'no'}" />
+					</p:column>
+					<p:column headerText="Kitchen">
+						<h:outputText value="#{room.extras.kitchen ? 'yes' : 'no'}" />
+					</p:column>
+					<p:column headerText="Laundry">
+						<h:outputText value="#{room.extras.laundry ? 'yes' : 'no'}" />
+					</p:column>
+					<p:column headerText="Tv">
+						<h:outputText value="#{room.extras.tv ? 'yes' : 'no'}" />
+					</p:column>
+					<p:column headerText="Terrace">
+						<h:outputText value="#{room.extras.terrace ? 'yes' : 'no'}" />
+					</p:column>
+					<p:column headerText="Delete">
+						<span style="display: table; margin: 0 auto;"> <p:commandLink
+								type="button" update="pricePeriod"
+								actionListener="#{adminMB.deleteRoom(room)}"
+								value="Delete">
+								<p:confirm header="Confirmation" icon="ui-icon-alert" />
+							</p:commandLink> 
+							<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+								<f:facet name="message">You are about to delete this item. <br/>Are you sure?</f:facet>
+								<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</span>
+					</p:column>
+				</p:dataTable>
 			</h:form>
 		</ui:define>
 	</ui:composition>

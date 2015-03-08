@@ -29,12 +29,12 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	@Transactional(value=TxType.REQUIRED)
-	public Room save(Room room) throws SaveRoomException {
+	public Room saveRoom(Room room) throws SaveRoomException {
 		List<Room> persons = roomRepository.findByNumber(room.getNumber());
 		if(persons.size() > 0){
 			throw new SaveRoomException();
 		}
-		return roomRepository.saveAndFlush(room);
+		return roomRepository.save(room);
 	}
 
 	@Override
@@ -43,8 +43,13 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public Room findById(Long id) {
+	public Room findRoomById(Long id) {
 		return roomRepository.findById(id);
+	}
+	
+	@Override
+	public void deleteRoom(Room room){
+		roomRepository.delete(room);
 	}
 	
 	@Override
@@ -54,7 +59,7 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	@Transactional(value=TxType.REQUIRED)
-	public PricePeriod save(PricePeriod pricePeriod) throws SavePricePeriodException{
+	public PricePeriod savePricePeriod(PricePeriod pricePeriod) throws SavePricePeriodException{
 		
 		if(pricePeriod.getTo().before(pricePeriod.getFrom())){
 			throw new SavePricePeriodException();
@@ -76,13 +81,13 @@ public class AdminServiceImpl implements AdminService{
 		if(count > 0){
 			throw new SavePricePeriodException();
 		}
-		return pricePeriodRepository.saveAndFlush(pricePeriod);
+		return pricePeriodRepository.save(pricePeriod);
 	}
 
 	@Override
 	@Transactional(value=TxType.REQUIRED)
 	public void deletePricePeriod(PricePeriod pricePeriod) {
-		pricePeriodRepository.delete(pricePeriod);
+		pricePeriodRepository.delete(pricePeriod.getId());
 	}
 
 }

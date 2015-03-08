@@ -14,7 +14,7 @@ public class RoomConverter implements Converter {
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) {
 		AdminService adminService = (AdminService) FacesContextUtils.getWebApplicationContext(context).getBean("adminService");
-		return adminService.findById(new Long(value));
+		return adminService.findRoomById(new Long(value));
 	}
 
 	public String getAsString(FacesContext context, UIComponent component,

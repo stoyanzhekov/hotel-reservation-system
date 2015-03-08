@@ -48,7 +48,7 @@ public class Room implements Serializable{
 	@OneToMany(mappedBy="room")
 	private List<ReservationDetails> reservationDetails;
 	
-	@OneToMany(mappedBy="room")
+	@OneToMany(mappedBy="room", cascade=CascadeType.ALL)
 	private List<PricePeriod> pricePeriods;
 	
 	@Enumerated(EnumType.STRING)

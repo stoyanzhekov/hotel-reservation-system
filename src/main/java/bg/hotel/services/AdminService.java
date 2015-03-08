@@ -9,13 +9,15 @@ import bg.hotel.exception.SaveRoomException;
 
 public interface AdminService {
 	
-	Room save(Room room) throws SaveRoomException;
+	Room saveRoom(Room room) throws SaveRoomException;
+	
+	void deleteRoom(Room room);
 	
 	List<Room> fetchAllRooms();
 	
-	Room findById(Long id);
+	Room findRoomById(Long id);
 
-	PricePeriod save(PricePeriod pricePeriod) throws SavePricePeriodException;
+	PricePeriod savePricePeriod(PricePeriod pricePeriod) throws SavePricePeriodException;
 
 	List<PricePeriod> fetchAllPricePeriods();
 	
