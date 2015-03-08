@@ -18,4 +18,6 @@ public interface AdminService {
 	PricePeriod save(PricePeriod pricePeriod) throws SavePricePeriodException;
 
 	List<PricePeriod> fetchAllPricePeriods();
+	
+	void deletePricePeriod(PricePeriod pricePeriod);
 }

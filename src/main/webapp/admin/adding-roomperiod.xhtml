@@ -38,7 +38,7 @@
 
 				<p:commandButton value="Save"
 					actionListener="#{adminMB.savePricePeriod(pricePeriod)}"
-					icon="ui-icon-check" update="grid, messages" />
+					icon="ui-icon-check" update="@all" />
 				<p:commandButton value="Reset" update="addPeriod" process="@this"
 					icon="ui-icon-cancel" style="margin-right:20px;">
 					<p:resetInput target="addPeriod" />
@@ -47,14 +47,39 @@
 		</ui:define>
 		<ui:define name="south_content">
 			<h:form>
-			<p:dataTable var="pricePeriod" value="#{adminMB.pricePeriods}">
-				<p:column headerText="Room Number">
-					<h:outputText value="#{pricePeriod.room.number}" />
-				</p:column>
-				<p:column headerText="From">
-					<h:outputText value="#{pricePeriod.from}" />
-				</p:column>
-			</p:dataTable>
+				<p:dataTable var="pricePeriod" value="#{adminMB.pricePeriods}"
+					id="pricePeriod">
+					<p:column headerText="Room Number">
+						<h:outputText value="#{pricePeriod.room.number}" />
+					</p:column>
+					<p:column headerText="From">
+						<h:outputText value="#{pricePeriod.from}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="To">
+						<h:outputText value="#{pricePeriod.to}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Price">
+						<h:outputText value="#{pricePeriod.price}" />
+					</p:column>
+					<p:column headerText="Delete">
+						<span style="display: table; margin: 0 auto;"> <p:commandLink
+								type="button" update="pricePeriod"
+								actionListener="#{adminMB.deletePricePeriod(pricePeriod)}"
+								value="Delete">
+								<p:confirm header="Confirmation" icon="ui-icon-alert" />
+							</p:commandLink> 
+							<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+								<f:facet name="message">You are about to delete this item. <br/>Are you sure?</f:facet>
+								<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</span>
+					</p:column>
+				</p:dataTable>
 			</h:form>
 		</ui:define>
 	</ui:composition>

@@ -48,6 +48,11 @@
 		<param-value>excite-bike</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
 	<!-- Project Stage Level -->
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>

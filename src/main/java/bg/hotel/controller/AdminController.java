@@ -46,23 +46,23 @@ public class AdminController implements Serializable {
 	public void saveRoom(Room room) throws SaveRoomException {
 		try {
 			room = adminService.save(room);
-			addMessage(FacesMessage.SEVERITY_INFO, INFO_TITLE,
-					ROOM_ADDING_SUCCESS_MSG);
+			addMessage(FacesMessage.SEVERITY_INFO, INFO_TITLE, ROOM_ADDING_SUCCESS_MSG);
 		} catch (SaveRoomException e) {
-			addMessage(FacesMessage.SEVERITY_WARN, WARN_TITLE,
-					ROOM_ADDING_NOT_SUCCESS_MSG);
+			addMessage(FacesMessage.SEVERITY_WARN, WARN_TITLE, ROOM_ADDING_NOT_SUCCESS_MSG);
 		}
 	}
 
 	public void savePricePeriod(PricePeriod pricePeriod) {
 		try {
 			adminService.save(pricePeriod);
-			addMessage(FacesMessage.SEVERITY_INFO, INFO_TITLE,
-					PRICE_PERIOD_ADDING_SUCCESS_MSG);
+			addMessage(FacesMessage.SEVERITY_INFO, INFO_TITLE, PRICE_PERIOD_ADDING_SUCCESS_MSG);
 		} catch (SavePricePeriodException e) {
-			addMessage(FacesMessage.SEVERITY_WARN, WARN_TITLE,
-					PRICE_PERIOD_ADDING_NOT_SUCCESS_MSG);
+			addMessage(FacesMessage.SEVERITY_WARN, WARN_TITLE, PRICE_PERIOD_ADDING_NOT_SUCCESS_MSG);
 		}
+	} 
+	
+	public void deletePricePeriod(PricePeriod pricePeriod){
+		adminService.deletePricePeriod(pricePeriod);
 	}
 
 	public List<PricePeriod> getPricePeriods() {
@@ -84,7 +84,6 @@ public class AdminController implements Serializable {
 	}
 
 	private void addMessage(Severity severity, String summary, String details) {
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(severity, summary, details));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, summary, details));
 	}
 }

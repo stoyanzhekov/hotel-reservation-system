@@ -53,13 +53,36 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+	@Transactional(value=TxType.REQUIRED)
 	public PricePeriod save(PricePeriod pricePeriod) throws SavePricePeriodException{
-		if(pricePeriod.getTo().before(pricePeriod.getFrom()) || 
-				pricePeriodRepository.findByFromAndTo(pricePeriod.getFrom(), pricePeriod.getTo()).size() > 0){
+		
+		if(pricePeriod.getTo().before(pricePeriod.getFrom())){
 			throw new SavePricePeriodException();
 			
 		}
+		List<PricePeriod> allPricePeriods = pricePeriodRepository.findAllByRoomNumber(pricePeriod.getRoom().getNumber());
+		//TODO: INCORRECT CONDITION
+		long count = allPricePeriods.stream().filter(p->{
+			if((pricePeriod.getFrom().after(p.getFrom()) && pricePeriod.getFrom().before(p.getTo())) ||
+					(pricePeriod.getFrom().equals(p.getFrom()) || pricePeriod.getFrom().equals(p.getTo())) ||
+					(pricePeriod.getTo().equals(p.getFrom()) || pricePeriod.getTo().equals(p.getTo())) ||
+					(pricePeriod.getTo().after(p.getFrom()) || pricePeriod.getFrom().before(p.getTo()))
+					){
+				return false;
+			}
+			
+			return false;
+		}).count();
+		if(count > 0){
+			throw new SavePricePeriodException();
+		}
 		return pricePeriodRepository.saveAndFlush(pricePeriod);
+	}
+
+	@Override
+	@Transactional(value=TxType.REQUIRED)
+	public void deletePricePeriod(PricePeriod pricePeriod) {
+		pricePeriodRepository.delete(pricePeriod);
 	}
 
 }
