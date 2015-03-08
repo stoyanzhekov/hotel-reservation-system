@@ -38,7 +38,7 @@ public class Reservation implements Serializable{
 	private Date createdAt;
 	
 	@OneToOne
-    @JoinColumn(name="payment_id", nullable=false)
+    @JoinColumn(name="payment_id")
 	private Payment payment;
 	
 	@ManyToOne
