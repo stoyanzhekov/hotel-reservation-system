@@ -4,17 +4,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
 	<h:outputStylesheet name="style.css" library="css" />
     </h:head>
     <h:body>
 	<div id="page">
-	<p:layout style="width: 100%; height: 100%;">
+	<p:layout style="width: 100%; height: 100%;" fullPage="true">
 		<p:layoutUnit position="west" resizable="true" size="150" minSize="150">
         	<h:panelGrid id="grid_menu" cellpadding="5" class="ui-grid">
         		<p:link outcome="/admin/adding-room" value="Add room" />
-        		<p:link outcome="/index" value="Add period" />
+        		<p:link outcome="/admin/adding-roomperiod" value="Add period" />
         	</h:panelGrid>
     	</p:layoutUnit>
 		<p:layoutUnit position="center">
@@ -22,6 +23,17 @@
 	  			<ui:insert name="content" >
 	   			</ui:insert>
 	    	</div>
+		</p:layoutUnit>
+		<p:layoutUnit position="south" size="250" minSize="250">
+			 <div id="south_content">
+	  			<ui:insert name="south_content" >
+	   			</ui:insert>
+	    	</div>
+		</p:layoutUnit>
+		<p:layoutUnit position="north" size="50" minSize="50">
+			<span style="display:table; margin:0 auto;">
+			 	<h:outputText value="#{msg['hotel.admin.title']}" />
+			 </span>
 		</p:layoutUnit>
 	</p:layout>
     </div>

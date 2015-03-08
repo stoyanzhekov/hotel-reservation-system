@@ -3,6 +3,7 @@ package bg.hotel.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="customer")
+@Named
 public class Customer implements Serializable{
 
 	/**

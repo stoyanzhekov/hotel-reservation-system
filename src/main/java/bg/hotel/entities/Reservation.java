@@ -1,9 +1,10 @@
 package bg.hotel.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
+import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="reservation")
+@Named
 public class Reservation implements Serializable{
 
 	/**
@@ -33,7 +35,7 @@ public class Reservation implements Serializable{
 	private List<ReservationDetails> reservationDetails;
 	
 	@Column(name="created_at")
-	private LocalDate createdAt;
+	private Date createdAt;
 	
 	@OneToOne
     @JoinColumn(name="payment_id", nullable=false)
@@ -61,11 +63,11 @@ public class Reservation implements Serializable{
 		this.reservationDetails = reservationDetails;
 	}
 
-	public LocalDate getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(LocalDate createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 

@@ -3,6 +3,7 @@ package bg.hotel.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="payment")
+@Named
 public class Payment implements Serializable{
 
 	/**

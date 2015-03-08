@@ -6,12 +6,13 @@
 	version="2.0">
 	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
-
 		<resource-bundle>
 			<base-name>messages</base-name>
 			<var>msg</var>
 		</resource-bundle>
-
 	</application>
-
+	<converter>
+		<converter-id>roomConverter</converter-id>
+		<converter-class>bg.hotel.converter.RoomConverter</converter-class>
+	</converter>
 </faces-config>

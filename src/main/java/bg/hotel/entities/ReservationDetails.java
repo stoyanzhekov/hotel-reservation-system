@@ -1,8 +1,9 @@
 package bg.hotel.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
+import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="reservation_details")
+@Named
 public class ReservationDetails implements Serializable{
 
 	/**
@@ -35,10 +37,10 @@ public class ReservationDetails implements Serializable{
 	private Reservation reservation;
 	
 	@Column(name="check_in", nullable=false)
-	private LocalDate checkIn;
+	private Date checkIn;
 	
 	@Column(name="check_out", nullable=false)
-	private LocalDate checkOut;
+	private Date checkOut;
 	
 	@Column(name="is_canceled")
 	private Boolean isCanceled;
@@ -69,19 +71,19 @@ public class ReservationDetails implements Serializable{
 		this.reservation = reservation;
 	}
 
-	public LocalDate getCheckIn() {
+	public Date getCheckIn() {
 		return checkIn;
 	}
 
-	public void setCheckIn(LocalDate checkIn) {
+	public void setCheckIn(Date checkIn) {
 		this.checkIn = checkIn;
 	}
 
-	public LocalDate getCheckOut() {
+	public Date getCheckOut() {
 		return checkOut;
 	}
 
-	public void setCheckOut(LocalDate checkOut) {
+	public void setCheckOut(Date checkOut) {
 		this.checkOut = checkOut;
 	}
 

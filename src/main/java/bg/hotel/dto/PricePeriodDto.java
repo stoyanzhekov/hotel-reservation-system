@@ -1,63 +1,33 @@
-package bg.hotel.entities;
+package bg.hotel.dto;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
-import javax.inject.Named;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import bg.hotel.entities.Room;
 
-import org.springframework.context.annotation.Scope;
-
-@Entity
-@Table(name="price_period")
-@Named
-@Scope("request")
-public class PricePeriod implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class PricePeriodDto {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id", nullable=false)
 	private Long id;
-	
-	@Column(name="from_date", nullable=false)
 	private Date from;
-	
-	@Column(name="to_date", nullable=false)
 	private Date to;
-	
-	@Column(name="price", nullable=false)
 	private BigDecimal price;
+	private Integer roomId;
+	private List<Room> rooms;
 	
-	@ManyToOne
-	@JoinColumn(name = "room_id")
-	@OneToOne(cascade=CascadeType.ALL)
-	private Room room;
-	
-	public PricePeriod(){}
+	public PricePeriodDto(List<Room> rooms){
+		//this.rooms = Arrays.copyOf(rooms.toArray(), rooms.toArray().length, Room[].class);
+		this.rooms = rooms;
+	}
 
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public Date getFrom() {
 		return from;
 	}
@@ -82,12 +52,28 @@ public class PricePeriod implements Serializable{
 		this.price = price;
 	}
 
-	public Room getRoom() {
-		return room;
+	/*public Room[] getRooms() {
+		return rooms;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRooms(Room[] rooms) {
+		this.rooms = rooms;
+	}*/
+
+	public Integer getRoomId() {
+		return roomId;
+	}
+
+	public List<Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
+
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
 
 	@Override
@@ -97,7 +83,8 @@ public class PricePeriod implements Serializable{
 		result = prime * result + ((from == null) ? 0 : from.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
-		result = prime * result + ((room == null) ? 0 : room.hashCode());
+		result = prime * result + ((roomId == null) ? 0 : roomId.hashCode());
+		result = prime * result + ((rooms == null) ? 0 : rooms.hashCode());
 		result = prime * result + ((to == null) ? 0 : to.hashCode());
 		return result;
 	}
@@ -110,7 +97,7 @@ public class PricePeriod implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PricePeriod other = (PricePeriod) obj;
+		PricePeriodDto other = (PricePeriodDto) obj;
 		if (from == null) {
 			if (other.from != null)
 				return false;
@@ -126,10 +113,15 @@ public class PricePeriod implements Serializable{
 				return false;
 		} else if (!price.equals(other.price))
 			return false;
-		if (room == null) {
-			if (other.room != null)
+		if (roomId == null) {
+			if (other.roomId != null)
 				return false;
-		} else if (!room.equals(other.room))
+		} else if (!roomId.equals(other.roomId))
+			return false;
+		if (rooms == null) {
+			if (other.rooms != null)
+				return false;
+		} else if (!rooms.equals(other.rooms))
 			return false;
 		if (to == null) {
 			if (other.to != null)
@@ -139,4 +131,11 @@ public class PricePeriod implements Serializable{
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "PricePeriodDto [id=" + id + ", from=" + from + ", to=" + to
+				+ ", price=" + price + ", room=" + roomId + ", rooms=" + rooms
+				+ "]";
+	}
+	
 }

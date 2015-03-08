@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Register Employee</title>
+</h:head>
+<h:body>
+	<ui:composition template="/WEB-INF/tamplates/admin.xhtml">
+		<ui:define name="content">
+			<h:form id="addPeriod">
+				<p:growl id="messages" showDetail="true" life="7000" />
+				<h:panelGrid columns="2" id="grid" cellpadding="5" class="ui-grid">
+
+					<p:outputLabel for="type" value="Room number: " />
+					<p:selectOneMenu id="type" required="true"
+						value="#{pricePeriod.room}" style="width:150px">
+						<f:selectItems value="#{adminMB.rooms}" var="room"
+							itemLabel="#{room.number}" itemValue="#{room}" />
+						<f:converter converterId="roomConverter" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="from" value="From:" />
+					<p:calendar required="true" id="from" value="#{pricePeriod.from}"
+						readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
+
+					<p:outputLabel for="to" value="To:" />
+					<p:calendar required="true" id="to" value="#{pricePeriod.to}"
+						readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
+
+					<h:outputLabel for="price" value="Price: " />
+					<p:inputText id="price" required="true"
+						value="#{pricePeriod.price}">
+						<f:validateDoubleRange minimum="1" maximum="1000" />
+					</p:inputText>
+				</h:panelGrid>
+
+				<p:commandButton value="Save"
+					actionListener="#{adminMB.savePricePeriod(pricePeriod)}"
+					icon="ui-icon-check" update="grid, messages" />
+				<p:commandButton value="Reset" update="addPeriod" process="@this"
+					icon="ui-icon-cancel" style="margin-right:20px;">
+					<p:resetInput target="addPeriod" />
+				</p:commandButton>
+			</h:form>
+		</ui:define>
+		<ui:define name="south_content">
+			<h:form>
+			<p:dataTable var="pricePeriod" value="#{adminMB.pricePeriods}">
+				<p:column headerText="Room Number">
+					<h:outputText value="#{pricePeriod.room.number}" />
+				</p:column>
+				<p:column headerText="From">
+					<h:outputText value="#{pricePeriod.from}" />
+				</p:column>
+			</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

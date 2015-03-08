@@ -2,10 +2,12 @@ package bg.hotel.entities;
 
 import java.io.Serializable;
 
+import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
+@Named
 public class Address implements Serializable{
 
 	/**

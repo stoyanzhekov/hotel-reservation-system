@@ -19,7 +19,8 @@
 
 	<context:annotation-config />
 
-	<context:component-scan base-package="bg.hotel" />
+	<context:component-scan base-package="bg.hotel" 
+	scope-resolver="bg.hotel.scoperesolver.CdiScopeMetadataResolver"/>
 
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler/>

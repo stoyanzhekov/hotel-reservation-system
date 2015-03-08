@@ -3,6 +3,7 @@ package bg.hotel.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Named;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,13 +13,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.context.annotation.Scope;
+
 @Entity
 @Table(name="room")
+@Named
+@Scope("request")
 public class Room implements Serializable{
 
 	/**
@@ -39,7 +43,7 @@ public class Room implements Serializable{
 	
 	@OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="extras_id")
-	private Extras extras;
+	private Extras extras = new Extras();
 	
 	@OneToMany(mappedBy="room")
 	private List<ReservationDetails> reservationDetails;
@@ -107,20 +111,13 @@ public class Room implements Serializable{
 	public void setReservationDetail(List<ReservationDetails> reservationDetails) {
 		this.reservationDetails = reservationDetails;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((extras == null) ? 0 : extras.hashCode());
 		result = prime * result + ((floor == null) ? 0 : floor.hashCode());
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
-		result = prime * result
-				+ ((pricePeriods == null) ? 0 : pricePeriods.hashCode());
-		result = prime
-				* result
-				+ ((reservationDetails == null) ? 0 : reservationDetails
-						.hashCode());
 		result = prime * result
 				+ ((roomType == null) ? 0 : roomType.hashCode());
 		return result;
@@ -135,11 +132,6 @@ public class Room implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Room other = (Room) obj;
-		if (extras == null) {
-			if (other.extras != null)
-				return false;
-		} else if (!extras.equals(other.extras))
-			return false;
 		if (floor == null) {
 			if (other.floor != null)
 				return false;
@@ -149,16 +141,6 @@ public class Room implements Serializable{
 			if (other.number != null)
 				return false;
 		} else if (!number.equals(other.number))
-			return false;
-		if (pricePeriods == null) {
-			if (other.pricePeriods != null)
-				return false;
-		} else if (!pricePeriods.equals(other.pricePeriods))
-			return false;
-		if (reservationDetails == null) {
-			if (other.reservationDetails != null)
-				return false;
-		} else if (!reservationDetails.equals(other.reservationDetails))
 			return false;
 		if (roomType != other.roomType)
 			return false;

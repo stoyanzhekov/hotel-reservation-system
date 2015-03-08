@@ -1,6 +1,6 @@
-package bg.hote.convertors;
+package bg.hotel.convertors;
 
-import bg.hote.dto.RoomDto;
+import bg.hotel.dto.RoomDto;
 import bg.hotel.entities.Extras;
 import bg.hotel.entities.Room;
 
@@ -11,6 +11,7 @@ public class RoomEntityConvertor {
 	
 	public static Room roomConvertor(RoomDto roomDto){
 		Room room = new Room();
+		room.setId(roomDto.getId());
 		room.setNumber(roomDto.getNumber());
 		room.setFloor(roomDto.getFloor());
 		if((roomDto.getAirConditioning() != null && roomDto.getAirConditioning()) || 
