@@ -270,8 +270,4 @@ public class ReservationDetailsDto implements Serializable {
 		return true;
 	}
 
-	public Reservation convertToEntity() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
