@@ -9,87 +9,72 @@
 <h:body>
 	<ui:composition template="/WEB-INF/tamplates/customer.xhtml">
 		<ui:define name="content">
-			<h:form>
-				<p:wizard flowListener="#{customerMB.onFlowProcess}">
-					<p:tab id="personal" title="Personal">
-            			<p:panel header="Personal Details">
-            			<p:messages />
-                			<h:panelGrid columns="2" columnClasses="label, value">
-								<h:outputLabel for="firstName" value="First name " />
-								<p:inputText id="firstName" required="true" value="#{customerMB.reservationDetails.firstName}"/>
-								<h:outputLabel for="lastName" value="Last name " />
-								<p:inputText id="lastName" required="true" value="#{customerMB.reservationDetails.lastName}"/>
-							</h:panelGrid>
-						</p:panel>
-					</p:tab>
-					<p:tab id="address" title="Address">
-            			<p:panel header="Address Details">
-            			<p:messages />
-                			<h:panelGrid columns="2" columnClasses="label, value">
-								<h:outputLabel for="streetName" value="Street " />
-								<p:inputText id="streetName" required="true" value="#{customerMB.reservationDetails.streetName}"/>
-								<h:outputLabel for="stretNumber" value="Street N " />
-								<p:inputText id="stretNumber" required="true" value="#{customerMB.reservationDetails.streetNumber}">
-									<f:validateDoubleRange minimum="1" maximum="100000" />
-								</p:inputText>
-								<h:outputLabel for="postCode" value="Post code " />
-								<p:inputText id="postCode" required="true" value="#{customerMB.reservationDetails.postCode}">
-									<f:validateDoubleRange minimum="1" maximum="100000" />
-								</p:inputText>
-							</h:panelGrid>
-						</p:panel>
-					</p:tab>
-					<p:tab id="roomExtras" title="Room Extras">
-            			<p:panel header="Room Details">
-            			<p:messages />
-                			<h:panelGrid columns="4" cellpadding="5" columnClasses="label, value">
-								<h:outputLabel for="bathtub" value="Bathtub: " />
-			        			<p:selectBooleanCheckbox id="bathtub" value="#{customerMB.reservationDetails.bathtub}" />
-			        			<h:outputLabel for="airConditioning" value="Air Conditioning: " />
-			        			<p:selectBooleanCheckbox id="airConditioning" value="#{customerMB.reservationDetails.airConditioning}" />
-			        			
-			        			<h:outputLabel for="kitchen" value="Kitchen: " />
-			        			<p:selectBooleanCheckbox id="kitchen" value="#{customerMB.reservationDetails.kitchen}" />
-			        			<h:outputLabel id="laundry" value="Laundry: " />
-			        			<p:selectBooleanCheckbox value="#{customerMB.reservationDetails.laundry}" />
-			        			
-			        			<h:outputLabel for="tv" value="TV: " />
-			        			<p:selectBooleanCheckbox id="tv" value="#{customerMB.reservationDetails.tv}" />
-			        			<h:outputLabel for="terrace" value="Terrace: " />
-			        			<p:selectBooleanCheckbox id="terrace" value="#{customerMB.reservationDetails.terrace}" />
-							</h:panelGrid>
-						</p:panel>
-					</p:tab>
-					
-					<p:tab id="reservationDetails" title="Reservation">
-            			<p:panel header="Reservation Details">
-            				<h:panelGrid columns="2" cellpadding="5" class="ui-grid">
-            					<p:outputLabel for="checkIn" value="From:" />
-								<p:calendar required="true" id="checkIn" value="#{customerMB.reservationDetail.checkIn}" readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
-								<p:outputLabel for="checkOut" value="To:" />
-								<p:calendar required="true" id="checkOut" value="#{customerMB.reservationDetail.checkOut}" readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
-            					<p:selectOneMenu value="#{customerMB.reservationDetail.roomCount}">
-   									<f:selectItem itemValue="1" itemLabel="1" />
-   									<f:selectItem itemValue="2" itemLabel="2" />
-   									<f:selectItem itemValue="3" itemLabel="3" />
-   									<f:selectItem itemValue="4" itemLabel="4" />
-   									<f:selectItem itemValue="5" itemLabel="5" />
-   									<f:selectItem itemValue="6" itemLabel="6" />
-   									<f:selectItem itemValue="7" itemLabel="7" />
-   									<f:selectItem itemValue="8" itemLabel="8" />
-   									<f:selectItem itemValue="9" itemLabel="9" />
-   									<f:selectItem itemValue="10" itemLabel="10" />
-   								</p:selectOneMenu>
-            				</h:panelGrid>
-            			</p:panel>
-            		</p:tab>
-					<p:tab id="confirm" title="Confirmation">
-            			<p:panel header="Confirmation">
-            				<h:outputText value="#{msg['hotel.customer.book.confirm.msg']}" />
-            				<p:commandButton value="Book" process="@this"/>
-            			</p:panel>
-            		</p:tab>
-				</p:wizard>
+			<h:form id="form">
+					<p:growl id="messages" showDetail="true" life="7000" />  
+         			<p:panel header="Personal Details">
+             			<h:panelGrid columns="2" columnClasses="label, value">
+					<h:outputLabel for="firstName" value="First name " />
+					<p:inputText id="firstName" required="true" value="#{customerMB.reservationDetails.firstName}"/>
+					<h:outputLabel for="lastName" value="Last name " />
+					<p:inputText id="lastName" required="true" value="#{customerMB.reservationDetails.lastName}"/>
+				</h:panelGrid>
+			</p:panel>
+         			<p:panel header="Address Details">
+             			<h:panelGrid columns="2" columnClasses="label, value">
+					<h:outputLabel for="streetName" value="Street " />
+					<p:inputText id="streetName" required="true" value="#{customerMB.reservationDetails.streetName}"/>
+					<h:outputLabel for="stretNumber" value="Street N " />
+					<p:inputText id="stretNumber" required="true" value="#{customerMB.reservationDetails.streetNumber}">
+						<f:validateDoubleRange minimum="1" maximum="100000" />
+					</p:inputText>
+					<h:outputLabel for="postCode" value="Post code " />
+					<p:inputText id="postCode" required="true" value="#{customerMB.reservationDetails.postCode}">
+						<f:validateDoubleRange minimum="1" maximum="100000" />
+					</p:inputText>
+				</h:panelGrid>
+			</p:panel>
+         			<p:panel header="Room Details">
+             			<h:panelGrid columns="4" cellpadding="5" columnClasses="label, value">
+					<h:outputLabel for="bathtub" value="Bathtub: " />
+        			<p:selectBooleanCheckbox id="bathtub" value="#{customerMB.reservationDetails.bathtub}" />
+        			<h:outputLabel for="airConditioning" value="Air Conditioning: " />
+        			<p:selectBooleanCheckbox id="airConditioning" value="#{customerMB.reservationDetails.airConditioning}" />
+        			
+        			<h:outputLabel for="kitchen" value="Kitchen: " />
+        			<p:selectBooleanCheckbox id="kitchen" value="#{customerMB.reservationDetails.kitchen}" />
+        			<h:outputLabel id="laundry" value="Laundry: " />
+        			<p:selectBooleanCheckbox value="#{customerMB.reservationDetails.laundry}" />
+        			
+        			<h:outputLabel for="tv" value="TV: " />
+        			<p:selectBooleanCheckbox id="tv" value="#{customerMB.reservationDetails.tv}" />
+        			<h:outputLabel for="terrace" value="Terrace: " />
+        			<p:selectBooleanCheckbox id="terrace" value="#{customerMB.reservationDetails.terrace}" />
+				</h:panelGrid>
+			</p:panel>
+		
+         			<p:panel header="Reservation Details">
+         				<h:panelGrid columns="2" cellpadding="5" class="ui-grid">
+         					<p:outputLabel for="checkIn" value="From:" />
+					<p:calendar required="true" id="checkIn" value="#{customerMB.reservationDetails.checkIn}" readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
+					<p:outputLabel for="checkOut" value="To:" />
+					<p:calendar required="true" id="checkOut" value="#{customerMB.reservationDetails.checkOut}" readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
+         					<p:selectOneMenu value="#{customerMB.reservationDetails.roomCount}">
+									<f:selectItem itemValue="1" itemLabel="1" />
+									<f:selectItem itemValue="2" itemLabel="2" />
+									<f:selectItem itemValue="3" itemLabel="3" />
+									<f:selectItem itemValue="4" itemLabel="4" />
+									<f:selectItem itemValue="5" itemLabel="5" />
+									<f:selectItem itemValue="6" itemLabel="6" />
+									<f:selectItem itemValue="7" itemLabel="7" />
+									<f:selectItem itemValue="8" itemLabel="8" />
+									<f:selectItem itemValue="9" itemLabel="9" />
+									<f:selectItem itemValue="10" itemLabel="10" />
+								</p:selectOneMenu>
+         				</h:panelGrid>
+         			</p:panel>
+         			<p:panel header="Confirmation">
+         				<p:commandButton value="Book" update="messages"  actionListener="customerMB.book()"/>
+         			</p:panel>
 			</h:form>
 		</ui:define>
 	</ui:composition>

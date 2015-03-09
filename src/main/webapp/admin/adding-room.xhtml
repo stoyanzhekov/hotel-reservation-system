@@ -11,8 +11,7 @@
 		<ui:define name="content">
 			<h:form id="addRoom">
 				<p:growl id="messages" showDetail="true" life="7000" />  
-				<h:panelGrid columns="2" id="grid" cellpadding="5" class="ui-grid">
-				
+				<h:panelGrid columns="2" id="grid" cellpadding="5" class="ui-grid">				
 					<h:outputLabel for="floor" value="Floor: " />
 	        		<p:inputText id="floor" required="true" value="#{room.floor}">
 	        			<f:validateDoubleRange minimum="1" maximum="10" />

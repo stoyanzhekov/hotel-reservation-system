@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>#{msg['hotel.admin.title']}</title>
+</h:head>
+<h:body>
+	<ui:composition template="/WEB-INF/tamplates/reception.xhtml">
+		<ui:define name="content">
+			<h:form id="form">
+			<p:growl id="messages" showDetail="true" life="7000" /> 
+			<p:panel header="Reservation report">
+				<h:panelGrid columns="5" id="grid" cellpadding="5" class="ui-grid">
+					<p:outputLabel for="from" value="From:" />
+					<p:calendar required="true" id="from" value="#{receptionMB.period.from}"
+						readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
+
+					<p:outputLabel for="to" value="To:" />
+					<p:calendar required="true" id="to" value="#{receptionMB.period.to}"
+						readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
+						<p:commandButton value="Show" update="messages"/>
+				</h:panelGrid>
+			</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

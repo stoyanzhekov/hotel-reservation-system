@@ -6,7 +6,6 @@ package bg.hotel.controller;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.event.FlowEvent;
 import org.springframework.context.annotation.Scope;
 
 import bg.hotel.dto.ReservationDetailsDto;
@@ -21,12 +20,9 @@ public class CustomerController {
 	
 	private ReservationDetailsDto reservationDetails = new ReservationDetailsDto();
 	
-	public String onFlowProcess(FlowEvent event) {
-		return event.getNewStep();
-    }
-	
-	public void book(ReservationDetailsDto reservationDetails){
-		customerService.book(reservationDetails.convertToEntity());
+	public void book(){
+		System.out.println("test");
+		//customerService.book(reservationDetails.convertToEntity());
 	}
 
 	public ReservationDetailsDto getReservationDetails() {
