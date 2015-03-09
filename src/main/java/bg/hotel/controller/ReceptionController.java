@@ -23,29 +23,16 @@ public class ReceptionController {
     private List<DynamicRoom> dynamicRooms = new ArrayList<>();
     private List<ColumnModel> columns;
 
-    private String columnTemplate = "number day1 day2 day3 day4 day5";
+    private String columnTemplate = "number day1 day2 day3 day4 day5 day6 day7";
 
     @PostConstruct
     public void init() {
         initRooms();
-        initColumnTemplate();
+
         createDynamicColumns();
     }
 
-    private void initColumnTemplate() {
-//        StringBuilder sb = new StringBuilder();
-//        for (PeriodDto ) {
-//
-//        }
-//        sb.append()
-//        columnTemplate
-    }
-
-    private int calculateDays(){
-        return 0;
-    }
-
-    public PeriodDto getPeriod() {
+	public PeriodDto getPeriod() {
 		return period;
 	}
 
@@ -58,13 +45,13 @@ public class ReceptionController {
         for (Room r :rooms) {
             DynamicRoom dr = new DynamicRoom();
             dr.number = r.getNumber();
-            dr.day1 = "empty";
-            dr.day2 = "full";
-            dr.day3 = "empty";
-            dr.day4 = "empty";
-            dr.day5 = "full";
-            dr.day6 = "empty";
-            dr.day7 = "full";
+            dr.day1 = "v";
+            dr.day2 = "x";
+            dr.day3 = "x";
+            dr.day4 = "x";
+            dr.day5 = "v";
+            dr.day6 = "v";
+            dr.day7 = "v";
             dynamicRooms.add(dr);
         }
 
@@ -121,7 +108,6 @@ public class ReceptionController {
         private String day5;
         private String day6;
         private String day7;
-        private String day8;
 
         public int getNumber() {
             return number;
