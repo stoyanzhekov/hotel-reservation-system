@@ -20,10 +20,31 @@
 					<p:outputLabel for="to" value="To:" />
 					<p:calendar required="true" id="to" value="#{receptionMB.period.to}"
 						readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
-						<p:commandButton value="Show" update="messages"/>
+						<p:commandButton value="Show" update="messages, roomTable" action="#{receptionMB.findRooms()}"/>
 				</h:panelGrid>
 			</p:panel>
-			
+                <p:dataTable id="roomTable" var="room" value="#{receptionMB.rooms}" paginator="true" rows="10"
+                             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="5,10,15">
+                    <p:column headerText="Room number">
+                        <h:outputText value="#{room.number}" />
+                    </p:column>
+                    <p:column headerText="From">
+                        <h:outputText value="#{receptionMB.period.from}" />
+                    </p:column>
+                    <p:column headerText="To">
+                        <h:outputText value="#{receptionMB.period.to}" />
+                    </p:column>
+                </p:dataTable>
+
+                <p:dataTable id="dynamicRooms" var="dynamicRoom" value="#{receptionMB.dynamicRooms}" widgetVar="roomsTable">
+                    <p:columns value="#{receptionMB.columns}" var="column" columnIndexVar="colIndex">
+                        <f:facet name="header">
+                            <h:outputText value="#{column.header}" />
+                        </f:facet>
+                        <h:outputText styleClass="#{dynamicRoom[column.property]}" value="#{dynamicRoom[column.property]}" />
+                    </p:columns>
+                </p:dataTable>
 			</h:form>
 		</ui:define>
 	</ui:composition>

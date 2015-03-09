@@ -1,5 +1,9 @@
 package bg.hotel.services;
 
-public interface ReceptionService {
+import bg.hotel.entities.Room;
 
+import java.util.List;
+
+public interface ReceptionService {
+     List<Room> fetchAllRooms();
 }
