@@ -16,6 +16,7 @@ import bg.hotel.exception.SaveRoomException;
 import bg.hotel.repositories.PricePeriodRepository;
 import bg.hotel.repositories.RoomRepository;
 import bg.hotel.services.AdminService;
+import bg.hotel.util.DateUtils;
 
 @Named(value="adminService")
 @Transactional(value=TxType.SUPPORTS)
@@ -30,8 +31,8 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	@Transactional(value=TxType.REQUIRED)
 	public Room saveRoom(Room room) throws SaveRoomException {
-		List<Room> persons = roomRepository.findByNumber(room.getNumber());
-		if(persons.size() > 0){
+		List<Room> rooms = roomRepository.findByNumber(room.getNumber());
+		if(rooms.size() > 0){
 			throw new SaveRoomException();
 		}
 		return roomRepository.save(room);
@@ -61,9 +62,8 @@ public class AdminServiceImpl implements AdminService{
 	@Transactional(value=TxType.REQUIRED)
 	public PricePeriod savePricePeriod(PricePeriod pricePeriod) throws SavePricePeriodException{
 		
-		if(pricePeriod.getTo().before(pricePeriod.getFrom())){
+		if(!DateUtils.isPeriodValid(pricePeriod.getFrom(), pricePeriod.getTo())){
 			throw new SavePricePeriodException();
-			
 		}
 		List<PricePeriod> allPricePeriods = pricePeriodRepository.findAllByRoomNumber(pricePeriod.getRoom().getNumber());
 		//TODO: INCORRECT CONDITION

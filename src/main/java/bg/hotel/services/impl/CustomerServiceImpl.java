@@ -17,13 +17,16 @@ import org.springframework.context.ApplicationContext;
 
 import bg.hotel.dto.ReservationDetailsDto;
 import bg.hotel.entities.Customer;
+import bg.hotel.entities.Extras;
 import bg.hotel.entities.Reservation;
 import bg.hotel.entities.ReservationDetails;
 import bg.hotel.entities.Room;
+import bg.hotel.exception.InvalidPeriodException;
 import bg.hotel.repositories.CustomerRepository;
 import bg.hotel.repositories.ReservationRepository;
 import bg.hotel.repositories.RoomRepository;
 import bg.hotel.services.CustomerService;
+import bg.hotel.util.DateUtils;
 
 @Named
 @Transactional(value=TxType.SUPPORTS)
@@ -51,8 +54,11 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	@Transactional(value=TxType.REQUIRED)
-	public synchronized boolean book(ReservationDetailsDto reservationDetails) {
+	public synchronized boolean book(ReservationDetailsDto reservationDetails) throws InvalidPeriodException {
 		boolean result = true;
+		if(!DateUtils.isPeriodValid(reservationDetails.getCheckIn(), reservationDetails.getCheckOut())){
+			throw new InvalidPeriodException();
+		}
 		List<Room> availableRooms = customerService.availableRoom(reservationDetails);
 		if(availableRooms.size() == 0 || availableRooms.size() < reservationDetails.getRoomCount()){
 			result = false;
@@ -66,6 +72,7 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	public List<Room> availableRoom(ReservationDetailsDto reservationDetails) {
+		roomRepository.findAvailableRooms();
 		// TODO Auto-generated method stub
 		//date and extras
 		return null;
@@ -82,7 +89,17 @@ public class CustomerServiceImpl implements CustomerService{
 			rd.setCheckIn(reservationDetails.getCheckIn());
 			rd.setCheckOut(reservationDetails.getCheckOut());
 			rd.setReservation(reservation);
-			rd.setRoom(availableRooms.get(i));
+			Extras extras = new Extras();
+			extras.setAirConditioning(reservationDetails.getAirConditioning());
+			extras.setBathtub(reservationDetails.getBathtub());
+			extras.setKitchen(reservationDetails.getKitchen());
+			extras.setLaundry(reservationDetails.getLaundry());
+			extras.setTerrace(reservationDetails.getTerrace());
+			extras.setTv(reservationDetails.getTv());
+			Room room = availableRooms.get(i);
+			room.setExtras(extras);
+			extras.setRoom(room);
+			rd.setRoom(room);
 			rds.add(rd);
 		}
 		return reservation;

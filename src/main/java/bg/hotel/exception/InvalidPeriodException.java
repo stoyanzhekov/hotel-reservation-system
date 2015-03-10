@@ -1,6 +1,6 @@
 package bg.hotel.exception;
 
-public class ReportException extends Exception{
+public class InvalidPeriodException extends Exception{
 
 	/**
 	 * 

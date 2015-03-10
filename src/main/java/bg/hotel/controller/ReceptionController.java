@@ -1,9 +1,10 @@
 package bg.hotel.controller;
 
+import bg.hotel.dto.PeriodDto;
 import bg.hotel.dto.ReceptionReportModel;
 import bg.hotel.entities.ReservationDetails;
 import bg.hotel.entities.Room;
-import bg.hotel.exception.ReportException;
+import bg.hotel.exception.InvalidPeriodException;
 import bg.hotel.services.ReceptionService;
 
 import org.springframework.context.annotation.Scope;
@@ -31,7 +32,7 @@ public class ReceptionController extends BaseController{
     public void showReport(PeriodDto period) {
     	try {
 			rrm = receptionService.showReport(period);
-		} catch (ReportException e) {
+		} catch (InvalidPeriodException e) {
 			rrm.getDays().clear();
 			rrm.getRooms().clear();
 			addMessage(FacesMessage.SEVERITY_WARN, INFO_TITLE, INCORRECT_REPORTED_DATES_INPUT);

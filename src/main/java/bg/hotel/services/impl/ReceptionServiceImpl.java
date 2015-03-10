@@ -1,13 +1,14 @@
 package bg.hotel.services.impl;
 
-import bg.hotel.controller.PeriodDto;
+import bg.hotel.dto.PeriodDto;
 import bg.hotel.dto.ReceptionReportModel;
 import bg.hotel.entities.ReservationDetails;
 import bg.hotel.entities.Room;
-import bg.hotel.exception.ReportException;
+import bg.hotel.exception.InvalidPeriodException;
 import bg.hotel.repositories.RoomRepository;
 import bg.hotel.services.CustomerService;
 import bg.hotel.services.ReceptionService;
+import bg.hotel.util.DateUtils;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -51,9 +52,9 @@ public class ReceptionServiceImpl implements ReceptionService{
     }
     
     @Override
-    public ReceptionReportModel showReport(PeriodDto period) throws ReportException{
-    	if(!isValid(period)){
-    		throw new ReportException();
+    public ReceptionReportModel showReport(PeriodDto period) throws InvalidPeriodException{
+    	if(!DateUtils.isPeriodValid(period.getFrom(), period.getTo())){
+    		throw new InvalidPeriodException();
     	}
     	ReceptionReportModel rrm = new ReceptionReportModel();
     	rrm.setDays(populateReportedDays(period));
@@ -84,14 +85,6 @@ public class ReceptionServiceImpl implements ReceptionService{
         c.add(Calendar.DATE, 1);
         date = c.getTime();
         return date;
-    }
-    
-    private boolean isValid(PeriodDto period){
-    	boolean result = true;
-        if (period.getFrom().after(period.getTo())) {
-        	result = false;
-        }
-        return result;
     }
 
     public List<Room> getDummyData() {

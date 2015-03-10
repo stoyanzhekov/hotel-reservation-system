@@ -1,4 +1,4 @@
-package bg.hotel.controller;
+package bg.hotel.dto;
 
 import java.io.Serializable;
 import java.util.Date;
