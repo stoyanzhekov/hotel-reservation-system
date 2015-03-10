@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -22,23 +20,12 @@ import bg.hotel.services.AdminService;
 
 @Named(value = "adminMB")
 @Scope("request")
-public class AdminController implements Serializable {
+public class AdminController extends BaseController implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final String ROOM_ADDING_SUCCESS_MSG = "Room has been successfully added.";
-	private static final String ROOM_ADDING_NOT_SUCCESS_MSG = "Room with such number on this floor already exist.";
-	private static final String PRICE_PERIOD_ADDING_NOT_SUCCESS_MSG = "Price period for this room already exist or date to is before from.";
-	private static final String PRICE_PERIOD_ADDING_SUCCESS_MSG = "Price period has been successfully added.";
-	@SuppressWarnings("unused")
-	private static final String EMPTY_ROOM_LIST = "There are not added any rooms.";
-	private static final String INFO_TITLE = "Info";
-	@SuppressWarnings("unused")
-	private static final String ERROR_TITLE = "Error";
-	private static final String WARN_TITLE = "Warn";
-
 	@Inject
 	private AdminService adminService;
 	private Map<RoomType, RoomType> roomTypes;
@@ -85,9 +72,5 @@ public class AdminController implements Serializable {
 			}
 		}
 		return roomTypes;
-	}
-
-	private void addMessage(Severity severity, String summary, String details) {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, summary, details));
 	}
 }
