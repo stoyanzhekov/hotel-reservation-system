@@ -22,8 +22,7 @@
                         <p:calendar required="true" id="to" value="#{receptionMB.period.to}"
                             readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
                             <p:commandButton value="Show" update="messages, roomsTable"
-                                             actionListener="#{receptionMB.initRooms()}"
-                                             action="#{receptionMB.calculateDays()}"/>
+                                             action="#{receptionMB.showReport(receptionMB.period)}"/>
                     </h:panelGrid>
                 </p:panel>
 
@@ -32,14 +31,14 @@
                         <f:facet name="header">
                             <p:row>
                                 <p:column colspan="1">
-                                    <c:if test="#{receptionMB.rooms.size() > 0}">
+                                    <ui:fragment rendered="#{receptionMB.rrm != null and receptionMB.rrm.rooms.size() > 0}">
                                         <span style="float:left">Room N:</span>
-                                    </c:if>
-                                    <c:if test="#{receptionMB.rooms.size() == 0}">
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{receptionMB.rrm == null or receptionMB.rrm.rooms.size() == 0}">
                                         <span style="float:left">No results found</span>
-                                    </c:if>
+                                    </ui:fragment>
                                 </p:column>
-                                <c:forEach var="day" items="#{receptionMB.days}">
+                                <c:forEach var="day" items="#{receptionMB.rrm.days}">
                                     <p:column colspan="1">
                                         #{day}
                                     </p:column>
@@ -47,19 +46,22 @@
                             </p:row>
                         </f:facet>
 
-                        <c:forEach var="room" items="#{receptionMB.rooms}">
-                            <p:row>
-                                <p:column>
-                                    #{room.number}
-                                </p:column>
-                                <c:forEach var="day" items="#{receptionMB.days}">
-                                    <p:column style="width:150px; background: #{receptionMB.isFree(room, day)==true ? 'green': 'red'}">
-                                        <c:if test="#{receptionMB.isFree(room, day)}">Free</c:if>
-                                        <c:if test="#{!receptionMB.isFree(room, day)}">Busy</c:if>
-                                    </p:column>
-                                </c:forEach>
-                            </p:row>
-                        </c:forEach>
+						
+	                        <c:forEach var="room" items="#{receptionMB.rrm.rooms}">
+	                            <p:row>
+	                                <p:column>
+	                                    #{room.number}
+	                                </p:column>
+	                                <c:if test="#{receptionMB.rrm != null}">
+	                                <c:forEach var="day" items="#{receptionMB.rrm.days}">
+	                                    <p:column style="width:150px; background: #{receptionMB.isFree(room, day) == true ? 'green': 'red'}">
+	                                        <ui:fragment test="#{receptionMB.isFree(room, day)}">Free</ui:fragment>
+	                                        <ui:fragment test="#{!receptionMB.isFree(room, day)}">Busy</ui:fragment>
+	                                    </p:column>
+	                                </c:forEach>
+	                                </c:if>
+	                            </p:row>
+	                        </c:forEach>
                     </p:panelGrid>
             </h:form>
 		</ui:define>

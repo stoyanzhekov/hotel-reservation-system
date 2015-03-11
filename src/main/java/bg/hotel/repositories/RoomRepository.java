@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface RoomRepository extends JpaRepository<Room, Long>, JpaSpecificationExecutor<Room> {
+public interface RoomRepository extends JpaRepository<Room, Long>, JpaSpecificationExecutor<Room>, RoomRepositoryCustom {
 
 	List<Room> findByNumber(Integer number);
 	Room findById(Long id);
