@@ -3,16 +3,15 @@
  */
 package bg.hotel.controller;
 
+import bg.hotel.dto.ReservationDetailsDto;
+import bg.hotel.services.CustomerService;
+import org.springframework.context.annotation.Scope;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.springframework.context.annotation.Scope;
-
-import bg.hotel.dto.ReservationDetailsDto;
-import bg.hotel.services.CustomerService;
 
 @Scope("session")
 @Named(value="customerMB")
@@ -29,9 +28,9 @@ public class CustomerController {
 	
 	public void book(ReservationDetailsDto reservationDetails){
 		if(customerService.book(reservationDetails)){
-			addMessage(FacesMessage.SEVERITY_INFO, INFO_TITLE, RESERVATION_NOT_SUCCEED);
-		} else {
 			addMessage(FacesMessage.SEVERITY_INFO, INFO_TITLE, RESERVATION_SUCCEED);
+		} else {
+			addMessage(FacesMessage.SEVERITY_INFO, INFO_TITLE, RESERVATION_NOT_SUCCEED);
 		}
 	}
 
