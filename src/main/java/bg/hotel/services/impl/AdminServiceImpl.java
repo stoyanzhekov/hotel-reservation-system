@@ -13,6 +13,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
+
+import org.joda.time.Interval;
+
 import java.util.List;
 
 @Named(value="adminService")
@@ -26,7 +29,7 @@ public class AdminServiceImpl implements AdminService{
 	private PricePeriodRepository pricePeriodRepository;
 	
 	@Override
-	@Transactional(value=TxType.REQUIRED)
+	@Transactional(value=TxType.REQUIRED, rollbackOn={Exception.class})
 	public Room saveRoom(Room room) throws SaveRoomException {
 		List<Room> rooms = roomRepository.findByNumber(room.getNumber());
 		if(rooms.size() > 0){
@@ -46,6 +49,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+	@Transactional(rollbackOn=Exception.class,  value=TxType.REQUIRED)
 	public void deleteRoom(Room room){
 		roomRepository.delete(room);
 	}
@@ -56,21 +60,28 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	@Transactional(value=TxType.REQUIRED)
+	@Transactional(rollbackOn={SavePricePeriodException.class, Exception.class},  value=TxType.REQUIRED)
 	public PricePeriod savePricePeriod(PricePeriod pricePeriod) throws SavePricePeriodException{
 		
 		if(!DateUtils.isPeriodValid(pricePeriod.getFrom(), pricePeriod.getTo())){
 			throw new SavePricePeriodException();
 		}
-        List<PricePeriod> pricePeriods = pricePeriodRepository.checkPricePeriod(pricePeriod.getFrom(), pricePeriod.getTo());
-		if(pricePeriods.size() > 0){
-			throw new SavePricePeriodException();
-		}
+        List<PricePeriod> pricePeriods = pricePeriodRepository.checkPricePeriod(pricePeriod.getRoom().getNumber());
+        Interval new_, existing;
+        for(PricePeriod p : pricePeriods){
+        	new_ = new Interval(pricePeriod.getFrom().getTime(), pricePeriod.getTo().getTime());
+        	existing = new Interval(p.getFrom().getTime(), p.getTo().getTime());
+        	boolean overlap = new_.overlaps(existing);
+        	boolean abuts = new_.abuts(existing);
+        	if(overlap || abuts){
+        		throw new SavePricePeriodException();
+        	}
+        }
 		return pricePeriodRepository.save(pricePeriod);
 	}
 
 	@Override
-	@Transactional(value=TxType.REQUIRED)
+	@Transactional(value=TxType.REQUIRED, rollbackOn={Exception.class})
 	public void deletePricePeriod(PricePeriod pricePeriod) {
 		pricePeriodRepository.delete(pricePeriod.getId());
 	}

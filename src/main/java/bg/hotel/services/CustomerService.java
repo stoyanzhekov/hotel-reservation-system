@@ -14,5 +14,5 @@ public interface CustomerService {
 
 	List<Customer> findAllCustomers();
 	boolean book(ReservationDetailsDto res) throws InvalidPeriodException;
-	List<Room> availableRoom(ReservationDetailsDto reservationDetails);
+	List<Room> availableRooms(ReservationDetailsDto reservationDetails);
 }

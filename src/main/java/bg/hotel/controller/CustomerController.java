@@ -23,7 +23,8 @@ public class CustomerController extends BaseController{
 	
 	public void book(ReservationDetailsDto reservationDetails){
 		try {
-			if(customerService.book(reservationDetails)){
+			boolean bookSucceed = customerService.book(reservationDetails);
+			if(bookSucceed){
 				addMessage(FacesMessage.SEVERITY_INFO, INFO_TITLE, RESERVATION_SUCCEED);
 			} else {
 				addMessage(FacesMessage.SEVERITY_INFO, INFO_TITLE, RESERVATION_NOT_SUCCEED);
@@ -31,6 +32,7 @@ public class CustomerController extends BaseController{
 		} catch (InvalidPeriodException e) {
 			addMessage(FacesMessage.SEVERITY_WARN, INFO_TITLE, INCORRECT_REPORTED_DATES_INPUT);
 		}
+		
 	}
 
 	public ReservationDetailsDto getReservationDetails() {

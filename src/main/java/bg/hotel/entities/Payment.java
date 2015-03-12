@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.inject.Named;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -30,7 +32,8 @@ public class Payment implements Serializable{
 	@Column(name="amount")
 	private BigDecimal amount;
 	
-	@OneToOne(mappedBy="payment")
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="reservation_id")
 	private Reservation reservetion;
 	
 	public Payment(){}

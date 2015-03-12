@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Named;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,17 +32,16 @@ public class Reservation implements Serializable{
 	@Column(name="id", nullable=false)
 	private Long id;
 	
-	@OneToMany(mappedBy="reservation")
+	@OneToMany(mappedBy="reservation", cascade=CascadeType.ALL)
 	private List<ReservationDetails> reservationDetails;
 	
 	@Column(name="created_at")
 	private Date createdAt;
 	
-	@OneToOne
-    @JoinColumn(name="payment_id")
+	@OneToOne(mappedBy="reservetion")
 	private Payment payment;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(nullable=false, name = "customer_id")
 	private Customer customer;
 	

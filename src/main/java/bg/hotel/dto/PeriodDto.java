@@ -3,8 +3,6 @@ package bg.hotel.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.inject.Named;
-
 public class PeriodDto implements Serializable{
 
 	/**
@@ -12,8 +10,8 @@ public class PeriodDto implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Date from;
-	private Date to;
+	private Date from = new Date();
+	private Date to = new Date();
 	
 	public PeriodDto(){}
 

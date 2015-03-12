@@ -12,9 +12,10 @@ public class RoomRepositoryImpl implements RoomRepositoryCustom{
 	
 	@PersistenceContext
 	private EntityManager em;
+	
 	@Override
 	public List<Room> findAvailableRooms() {
-		System.out.println("test");
+		//used for test purpose
 		return null;
 	}
 
