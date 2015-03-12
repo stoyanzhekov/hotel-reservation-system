@@ -41,7 +41,7 @@ public class Reservation implements Serializable{
 	@OneToOne(mappedBy="reservetion")
 	private Payment payment;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(nullable=false, name = "customer_id")
 	private Customer customer;
 	

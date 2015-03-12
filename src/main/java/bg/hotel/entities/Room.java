@@ -45,7 +45,7 @@ public class Room implements Serializable{
     @JoinColumn(name="extras_id")
 	private Extras extras = new Extras();
 	
-	@OneToMany(mappedBy="room")
+	@OneToMany(mappedBy="room", cascade=CascadeType.ALL)
 	private List<ReservationDetails> reservationDetails;
 	
 	@OneToMany(mappedBy="room", cascade=CascadeType.ALL)

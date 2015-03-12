@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Named;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -34,7 +35,7 @@ public class Customer implements Serializable{
 	@Column(name="last_name", nullable=false)
 	private String lastName;
 	
-	@OneToMany(mappedBy="customer")
+	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL)
 	private List<Reservation> reservation;
 	
 	@Embedded

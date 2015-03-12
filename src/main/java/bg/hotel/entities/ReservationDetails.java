@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.inject.Named;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +32,7 @@ public class ReservationDetails implements Serializable{
 	@JoinColumn(nullable=false, name = "room_id")
 	private Room room;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(nullable=false, name = "reservation_id")
 	private Reservation reservation;
 	
