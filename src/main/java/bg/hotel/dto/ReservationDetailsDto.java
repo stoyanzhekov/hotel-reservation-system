@@ -3,8 +3,6 @@ package bg.hotel.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import bg.hotel.entities.Reservation;
-
 public class ReservationDetailsDto implements Serializable {
 
 	/**

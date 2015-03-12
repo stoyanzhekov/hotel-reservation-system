@@ -6,7 +6,6 @@ package bg.hotel.services.impl;
 import bg.hotel.dto.ReservationDetailsDto;
 import bg.hotel.entities.Address;
 import bg.hotel.entities.Customer;
-import bg.hotel.entities.Extras;
 import bg.hotel.entities.Reservation;
 import bg.hotel.entities.ReservationDetails;
 import bg.hotel.entities.Room;
@@ -72,7 +71,7 @@ public class CustomerServiceImpl implements CustomerService{
 		if(availableRooms.size() < reservationDetails.getRoomCount()){
 			result = false;
 		} else {
-			reservationRepository.save(reservationDetailsDtoToEntity(reservationDetails, availableRooms));
+			customerRepository.save(reservationDetailsDtoToEntity(reservationDetails, availableRooms));
 		}
 
 		return result;
@@ -147,13 +146,15 @@ public class CustomerServiceImpl implements CustomerService{
         return result;
     }
 
-    private Reservation reservationDetailsDtoToEntity(ReservationDetailsDto reservationDetails, List<Room> availableRooms) {
+    private Customer reservationDetailsDtoToEntity(ReservationDetailsDto reservationDetails, List<Room> availableRooms) {
+    	ArrayList<Reservation> rl = new ArrayList<>();
 		Reservation reservation = new Reservation();
+		rl.add(reservation);
 		reservation.setCreatedAt(new Date());
 		Customer customer = new Customer();
 		customer.setFirstName(reservationDetails.getFirstName());
 		customer.setLastName(reservationDetails.getLastName());
-		//customer.setReservation(reservation);
+		customer.setReservation(rl);
 		reservation.setCustomer(customer);
 		Address address = new Address();
 		address.setStreetName(reservationDetails.getStreetName());
@@ -162,24 +163,16 @@ public class CustomerServiceImpl implements CustomerService{
 		ArrayList<ReservationDetails> rds = new ArrayList<>();
 		reservation.setReservationDetails(rds);
 		customer.setAddress(address);
-        customerRepository.save(customer);
+        //customerRepository.save(customer);
 		for(int i = 0; reservationDetails.getRoomCount() > i; i++){
 			ReservationDetails rd = new ReservationDetails();
 			rd.setCheckIn(reservationDetails.getCheckIn());
 			rd.setCheckOut(reservationDetails.getCheckOut());
 			rd.setReservation(reservation);
-			Extras extras = new Extras();
-			extras.setAirConditioning(reservationDetails.getAirConditioning());
-			extras.setBathtub(reservationDetails.getBathtub());
-			extras.setKitchen(reservationDetails.getKitchen());
-			extras.setLaundry(reservationDetails.getLaundry());
-			extras.setTerrace(reservationDetails.getTerrace());
-			extras.setTv(reservationDetails.getTv());
 			Room room = availableRooms.get(i);
-			extras.setRoom(room);
 			rd.setRoom(room);
 			rds.add(rd);
 		}
-		return reservation;
+		return customer;
 	}
 }

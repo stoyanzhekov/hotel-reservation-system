@@ -20,6 +20,7 @@ import org.springframework.context.ApplicationContext;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +46,7 @@ public class ReceptionServiceImpl implements ReceptionService{
     }
     
     @Override
+    @Transactional(value=TxType.REQUIRED)
     public Map<Integer, Map<Date, Boolean>> showReport(PeriodDto period) throws InvalidPeriodException{
     	if(!DateUtils.isPeriodValid(period.getFrom(), period.getTo())){
     		throw new InvalidPeriodException();
@@ -58,7 +60,7 @@ public class ReceptionServiceImpl implements ReceptionService{
     }
     
     private Map<Date, Boolean> populateReportedDays(Room room, PeriodDto period){
-    	Map<Date, Boolean> result = new HashMap<>();
+    	Map<Date, Boolean> result = new LinkedHashMap<>();
     	//calculate all days
     	int diffInDays = (int) ((period.getTo().getTime() - period.getFrom().getTime())/ DAY_IN_MILLIS );
         Date date = period.getFrom();
@@ -71,7 +73,8 @@ public class ReceptionServiceImpl implements ReceptionService{
     }
     
     private boolean isFree(Room room, Date date) {
-        for (ReservationDetails rd : room.getReservationDetail()) {
+    	List<ReservationDetails> rdl = room.getReservationDetail();
+        for (ReservationDetails rd : rdl) {
              if (rd.getCheckIn().getTime() <= date.getTime() &&
                      rd.getCheckOut().getTime() > date.getTime()) {
                  return false;

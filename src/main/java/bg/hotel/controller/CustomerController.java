@@ -27,7 +27,7 @@ public class CustomerController extends BaseController{
 			if(bookSucceed){
 				addMessage(FacesMessage.SEVERITY_INFO, INFO_TITLE, RESERVATION_SUCCEED);
 			} else {
-				addMessage(FacesMessage.SEVERITY_INFO, INFO_TITLE, RESERVATION_NOT_SUCCEED);
+				addMessage(FacesMessage.SEVERITY_WARN, INFO_TITLE, RESERVATION_NOT_SUCCEED);
 			}
 		} catch (InvalidPeriodException e) {
 			addMessage(FacesMessage.SEVERITY_WARN, INFO_TITLE, INCORRECT_REPORTED_DATES_INPUT);

@@ -25,46 +25,42 @@
                                             action="#{receptionMB.showReport(receptionMB.period)}"/>
                     </h:panelGrid>
                 </p:panel>
-
-
-                    <p:panelGrid id="roomsTable" style="width:300px;">
-                        <f:facet name="header">
-                            <p:row>
-                                <p:column colspan="1">
-                                    <ui:fragment rendered="#{receptionMB.rrm != null and receptionMB.rrm.size() > 0}">
-                                        <span style="float:left">Room N:</span>
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{receptionMB.rrm == null or receptionMB.rrm.size() == 0}">
-                                        <span style="float:left">No results found</span>
-                                    </ui:fragment>
-                                </p:column>
-                                <c:forEach var="roomNumber" items="#{receptionMB.rrm}" begin="0" end="#{receptionMB.rrm.size()}" step="#{receptionMB.rrm.size()}">
-                                	<c:forEach var="day" items="#{roomNumber.value}">
-	                                    <p:column colspan="1">
-	                                        <h:outputText value="#{day.key}">
-                								<f:convertDateTime pattern="MM/dd/yyyy" />
-            								</h:outputText>
-	                                    </p:column>
-	                                 </c:forEach>
-                                </c:forEach>
-                            </p:row>
-                        </f:facet>
-
-						
-	                        <c:forEach var="room" items="#{receptionMB.rrm}">
-	                            <p:row>
-	                                <p:column>
-	                                    <h:outputText value="#{room.key}" />
-	                                </p:column>
-	                                <c:forEach var="day" items="#{room.value}">
-	                                    <p:column style="width:150px; background: #{day.value == true ? 'green': 'red'}">
-	                                        <ui:fragment test="#{day.value}">Free</ui:fragment>
-	                                        <ui:fragment test="#{day.value}">Busy</ui:fragment>
-	                                    </p:column>
-	                                </c:forEach>
-	                                </p:row>
-	                        </c:forEach>
-                    </p:panelGrid>
+                 <p:panelGrid id="roomsTable">
+                     <f:facet name="header">
+                         <p:row>
+                             <p:column colspan="1">
+                                 <ui:fragment rendered="#{receptionMB.rrm != null and receptionMB.rrm.size() > 0}">
+                                     <span style="float:left">Room N:</span>
+                                 </ui:fragment>
+                                 <ui:fragment rendered="#{receptionMB.rrm == null or receptionMB.rrm.size() == 0}">
+                                     <span style="float:left">No results found</span>
+                                 </ui:fragment>
+                             </p:column>
+                             <c:forEach var="roomNumber" items="#{receptionMB.rrm}" begin="0" end="#{receptionMB.rrm.size()}" step="#{receptionMB.rrm.size()}">
+                             	<c:forEach var="day" items="#{roomNumber.value}">
+                                  <p:column colspan="1">
+                                      <h:outputText value="#{day.key}">
+             								<f:convertDateTime pattern="MM/dd/yyyy" />
+         								</h:outputText>
+                                  </p:column>
+                               </c:forEach>
+                             </c:forEach>
+                         </p:row>
+                     </f:facet>
+                      <c:forEach var="room" items="#{receptionMB.rrm}">
+                          <p:row>
+                              <p:column>
+                                  <h:outputText value="#{room.key}" />
+                              </p:column>
+                              <c:forEach var="day" items="#{room.value}">
+                                  <p:column style="width:150px; background: #{day.value == true ? 'green': 'red'}">
+                                      <ui:fragment test="#{day.value}">Free</ui:fragment>
+                                      <ui:fragment test="#{day.value}">Busy</ui:fragment>
+                                  </p:column>
+                              </c:forEach>
+                              </p:row>
+                      </c:forEach>
+                 </p:panelGrid>
             </h:form>
 		</ui:define>
 	</ui:composition>
