@@ -54,8 +54,8 @@
                               </p:column>
                               <c:forEach var="day" items="#{room.value}">
                                   <p:column style="width:150px; background: #{day.value == true ? 'green': 'red'}">
-                                      <ui:fragment test="#{day.value}">Free</ui:fragment>
-                                      <ui:fragment test="#{day.value}">Busy</ui:fragment>
+                                      <ui:fragment rendered="#{day.value}">Free</ui:fragment>
+                                      <ui:fragment rendered="#{day.value}">Busy</ui:fragment>
                                   </p:column>
                               </c:forEach>
                               </p:row>
