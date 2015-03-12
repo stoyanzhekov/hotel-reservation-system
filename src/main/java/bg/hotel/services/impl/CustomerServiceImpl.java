@@ -162,6 +162,7 @@ public class CustomerServiceImpl implements CustomerService{
 		ArrayList<ReservationDetails> rds = new ArrayList<>();
 		reservation.setReservationDetails(rds);
 		customer.setAddress(address);
+        customerRepository.save(customer);
 		for(int i = 0; reservationDetails.getRoomCount() > i; i++){
 			ReservationDetails rd = new ReservationDetails();
 			rd.setCheckIn(reservationDetails.getCheckIn());
@@ -175,7 +176,6 @@ public class CustomerServiceImpl implements CustomerService{
 			extras.setTerrace(reservationDetails.getTerrace());
 			extras.setTv(reservationDetails.getTv());
 			Room room = availableRooms.get(i);
-			room.setExtras(extras);
 			extras.setRoom(room);
 			rd.setRoom(room);
 			rds.add(rd);
