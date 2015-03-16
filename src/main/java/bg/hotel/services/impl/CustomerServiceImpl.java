@@ -71,7 +71,7 @@ public class CustomerServiceImpl implements CustomerService{
 		if(availableRooms.size() < reservationDetails.getRoomCount()){
 			result = false;
 		} else {
-			customerRepository.save(reservationDetailsDtoToEntity(reservationDetails, availableRooms));
+			reservationRepository.save(reservationDetailsDtoToEntity(reservationDetails, availableRooms));
 		}
 
 		return result;
@@ -146,15 +146,15 @@ public class CustomerServiceImpl implements CustomerService{
         return result;
     }
 
-    private Customer reservationDetailsDtoToEntity(ReservationDetailsDto reservationDetails, List<Room> availableRooms) {
-    	ArrayList<Reservation> rl = new ArrayList<>();
+    private Reservation reservationDetailsDtoToEntity(ReservationDetailsDto reservationDetails, List<Room> availableRooms) {
+    	//ArrayList<Reservation> rl = new ArrayList<>();
 		Reservation reservation = new Reservation();
-		rl.add(reservation);
+		//rl.add(reservation);
 		reservation.setCreatedAt(new Date());
 		Customer customer = new Customer();
 		customer.setFirstName(reservationDetails.getFirstName());
 		customer.setLastName(reservationDetails.getLastName());
-		customer.setReservation(rl);
+		//customer.setReservation(rl);
 		reservation.setCustomer(customer);
 		Address address = new Address();
 		address.setStreetName(reservationDetails.getStreetName());
@@ -173,6 +173,6 @@ public class CustomerServiceImpl implements CustomerService{
 			rd.setRoom(room);
 			rds.add(rd);
 		}
-		return customer;
+		return reservation;
 	}
 }
