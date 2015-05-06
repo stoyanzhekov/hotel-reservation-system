@@ -4,8 +4,10 @@
 package bg.hotel.controller;
 
 import bg.hotel.dto.ReservationDetailsDto;
+import bg.hotel.entities.RoomType;
 import bg.hotel.exception.InvalidPeriodException;
 import bg.hotel.services.CustomerService;
+
 import org.springframework.context.annotation.Scope;
 
 import javax.faces.application.FacesMessage;
@@ -42,4 +44,8 @@ public class CustomerController extends BaseController{
 	public void setReservationDetails(ReservationDetailsDto reservationDetails) {
 		this.reservationDetails = reservationDetails;
 	}
+	
+	public RoomType[] getRoomTypes() {
+        return RoomType.values();
+    }
 }

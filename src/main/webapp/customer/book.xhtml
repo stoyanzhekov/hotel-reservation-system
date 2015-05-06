@@ -55,10 +55,11 @@
          			<p:panel header="Reservation Details">
          				<h:panelGrid columns="2" cellpadding="5" class="ui-grid">
          					<p:outputLabel for="checkIn" value="From:" />
-					<p:calendar required="true" id="checkIn" value="#{customerMB.reservationDetails.checkIn}" readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
-					<p:outputLabel for="checkOut" value="To:" />
-					<p:calendar required="true" id="checkOut" value="#{customerMB.reservationDetails.checkOut}" readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
-         					<p:selectOneMenu value="#{customerMB.reservationDetails.roomCount}">
+							<p:calendar required="true" id="checkIn" value="#{customerMB.reservationDetails.checkIn}" readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
+							<p:outputLabel for="checkOut" value="To:" />
+							<p:calendar required="true" id="checkOut" value="#{customerMB.reservationDetails.checkOut}" readonlyInput="true" showOn="button" pattern="dd/MM/yyyy" />
+         					<p:outputLabel for="roomCount" value="Number :" />
+         					<p:selectOneMenu value="#{customerMB.reservationDetails.roomCount}" id="roomCount">
 									<f:selectItem itemValue="1" itemLabel="1" />
 									<f:selectItem itemValue="2" itemLabel="2" />
 									<f:selectItem itemValue="3" itemLabel="3" />
@@ -69,6 +70,10 @@
 									<f:selectItem itemValue="8" itemLabel="8" />
 									<f:selectItem itemValue="9" itemLabel="9" />
 									<f:selectItem itemValue="10" itemLabel="10" />
+								</p:selectOneMenu>
+								<p:outputLabel for="roomType" value="Room type :" />
+	         					<p:selectOneMenu value="#{customerMB.reservationDetails.roomType}" id="roomType">
+										<f:selectItems value="#{customerMB.getRoomTypes()}" var="roomTypes" itemValue="#{roomTypes}" itemLabel="#{roomTypes.label}"/>
 								</p:selectOneMenu>
          				</h:panelGrid>
          			</p:panel>

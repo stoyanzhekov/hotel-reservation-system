@@ -9,6 +9,7 @@ import bg.hotel.entities.Customer;
 import bg.hotel.entities.Reservation;
 import bg.hotel.entities.ReservationDetails;
 import bg.hotel.entities.Room;
+import bg.hotel.entities.RoomType;
 import bg.hotel.exception.InvalidPeriodException;
 import bg.hotel.repositories.CustomerRepository;
 import bg.hotel.repositories.ReservationRepository;
@@ -114,6 +115,9 @@ public class CustomerServiceImpl implements CustomerService{
                     Expression<Long> expression = root.get("extras").get("tv");
                     predicates.add(criteriaBuilder.equal(expression, tv));
                 }
+                RoomType rt = reservationDetails.getRoomType();
+                Expression<Long> expression = root.get("roomType");
+                predicates.add(criteriaBuilder.equal(expression, rt));
                 criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
                 return null;
             }
