@@ -158,6 +158,7 @@ public class CustomerServiceImpl implements CustomerService{
 		Customer customer = new Customer();
 		customer.setFirstName(reservationDetails.getFirstName());
 		customer.setLastName(reservationDetails.getLastName());
+		customer.setEmail(reservationDetails.getEmail());
 		//customer.setReservation(rl);
 		reservation.setCustomer(customer);
 		Address address = new Address();

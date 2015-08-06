@@ -80,6 +80,8 @@
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+    	<dispatcher>REQUEST</dispatcher><!-- mandatory to allow the managed bean to forward the request to the filter -->
     </filter-mapping>
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>

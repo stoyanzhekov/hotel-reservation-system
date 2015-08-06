@@ -40,6 +40,7 @@ public class ReceptionServiceImpl implements ReceptionService{
     private void init() {
     	receptionService = applicationContext.getBean(ReceptionService.class);
     }
+    
     @Override
     public List<Room> fetchAllRooms() {
         return roomRepository.findAll();

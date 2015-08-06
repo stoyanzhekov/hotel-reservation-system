@@ -9,24 +9,26 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security-3.1.xsd">
         
-     <sec:http auto-config="true" use-expressions="true">
-        <sec:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
-        <sec:intercept-url pattern="/reception/**" access="hasRole('ROLE_RECEPTIONIST')" />
-        <sec:intercept-url pattern="/customer/**" access="permitAll"/>
+     <sec:http use-expressions="true">
+        <sec:intercept-url pattern="/admin/**" access="isAuthenticated()" />
+        <sec:intercept-url pattern="/reception/**" access="isAuthenticated()" />
         <sec:intercept-url pattern="/**" access="permitAll"/>
-        <sec:http-basic/>
+        <sec:form-login 
+        	login-page="/login.xhtml"
+            authentication-failure-url="/login.xhtml?error=1"
+            authentication-success-handler-ref="myAuthenticationSuccessHandler"
+            authentication-details-source-ref="myAuthenticationDetailsSource"
+            username-parameter="login:username" 
+            password-parameter="login:password" />
         <sec:logout
             invalidate-session="true"
             delete-cookies="JSESSIONID"
-            logout-success-url="/"/>
+            
+            success-handler-ref="customLogoutSuccessHandler"/>
     </sec:http>
-     
-    <sec:authentication-manager alias="authenticationManager">
-        <sec:authentication-provider>
-            <sec:user-service>
-                <sec:user authorities="ROLE_RECEPTIONIST" name="reception" password="reception" />
-                <sec:user authorities="ROLE_ADMIN" name="admin" password="admin" />
-            </sec:user-service>
-        </sec:authentication-provider>
+
+    <sec:authentication-manager>
+        <!-- create a custom AuthenticationProvider class to tune the login process -->
+        <sec:authentication-provider ref="myAuthenticationProvider" />
     </sec:authentication-manager> 
 </beans:beans>

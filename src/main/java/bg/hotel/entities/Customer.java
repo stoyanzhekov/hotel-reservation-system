@@ -35,6 +35,9 @@ public class Customer implements Serializable{
 	@Column(name="last_name", nullable=false)
 	private String lastName;
 	
+	@Column(name="email", nullable=false)
+	private String email;
+	
 	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL)
 	private List<Reservation> reservation;
 	
@@ -68,6 +71,14 @@ public class Customer implements Serializable{
 		this.lastName = lastName;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public List<Reservation> getReservation() {
 		return reservation;
 	}
@@ -89,6 +100,7 @@ public class Customer implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result
 				+ ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result
@@ -109,6 +121,11 @@ public class Customer implements Serializable{
 			if (other.address != null)
 				return false;
 		} else if (!address.equals(other.address))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
 			return false;
 		if (firstName == null) {
 			if (other.firstName != null)

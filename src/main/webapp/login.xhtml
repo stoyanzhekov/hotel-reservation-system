@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+</h:head>
+<body>
+	<p:layout style="width: 100%; height: 100%;" fullPage="true">
+		<p:layoutUnit position="center">
+			<h:form id="login">
+				<p:panelGrid columns="2" id="loginGrid">
+				    <p:outputLabel for="username" value="Username:" />
+			        <p:inputText id="username" name="username" required="true" requiredMessage="Please enter username"/>
+			        <p:outputLabel for="password" value="Password:" />
+			        <p:password id="password" name="password" required="true" requiredMessage="Please enter password"/>
+				</p:panelGrid>
+				<ui:fragment rendered="${param['error'] == 1}">
+					<div>Connection failed: user and/or password are wrong.</div>
+				</ui:fragment>
+				<ui:fragment rendered="${param['error'] == 2}">
+					<div>User does not have authorization.</div>
+				</ui:fragment>
+				<p:commandButton value="Login" id="login" actionListener="#{loginManager.doLogin()}" ajax="false" />
+			</h:form>
+		</p:layoutUnit>
+		<p:layoutUnit position="north" size="50" minSize="50">
+			<span style="display:table; margin:0 auto;">
+			 	<h:outputText value="#{msg['hotel.welcome']}" />
+			 </span>
+		</p:layoutUnit>
+	</p:layout>
+</body>
+</html>

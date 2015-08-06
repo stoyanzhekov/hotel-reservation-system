@@ -4,15 +4,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.springframework.context.annotation.Scope;
 
 import bg.hotel.entities.PricePeriod;
 import bg.hotel.entities.Room;
